@@ -1,0 +1,33 @@
+{
+  "bridgers": {
+    "baseUrl": "https://api.bridgers.xyz",
+    "quotePath": "/api/sswap/quote",
+    "swapPath": "/api/sswap/swap",
+    "historyListPath": "/api/exchangeRecord/getTransData",
+    "historyDetailPath": "/api/exchangeRecord/getTransDataById",
+    "updateStatusPath": "/api/exchangeRecord/updateDataAndStatus",
+    "requiresApiKey": false,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "defaultParams": {
+      "sourceType": "H5",
+      "sourceFlag": "perpex01",
+      "utmSource": ""
+    },
+    "notes": "The current Bridgers public API does not require an API key."
+  },
+  "perpexTokenService": {
+    "baseUrl": "https://api.perpex.ai",
+    "path": "/coin/find",
+    "method": "POST",
+    "requiresApiKey": false,
+    "headers": {
+      "Content-Type": "application/json"
+    },
+    "bodyTemplate": {
+      "env": "celo wrap"
+    },
+    "notes": "Used to dynamically fetch the list of tokens available for cross-chain operations, corresponding to the fetchBridgerTokens call."
+  }
+}

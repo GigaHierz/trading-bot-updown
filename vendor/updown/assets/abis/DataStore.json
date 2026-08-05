@@ -1,0 +1,43 @@
+{
+  "abi": [
+    {
+      "inputs": [{ "name": "key", "type": "bytes32" }],
+      "name": "getUint",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "name": "key", "type": "bytes32" }],
+      "name": "getAddress",
+      "outputs": [{ "name": "", "type": "address" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "name": "key", "type": "bytes32" }],
+      "name": "getBool",
+      "outputs": [{ "name": "", "type": "bool" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [{ "name": "setKey", "type": "bytes32" }],
+      "name": "getBytes32Count",
+      "outputs": [{ "name": "", "type": "uint256" }],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        { "name": "setKey", "type": "bytes32" },
+        { "name": "start", "type": "uint256" },
+        { "name": "end", "type": "uint256" }
+      ],
+      "name": "getBytes32ValuesAt",
+      "outputs": [{ "name": "", "type": "bytes32[]" }],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

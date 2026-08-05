@@ -1,0 +1,20 @@
+{
+  "name": "updown-trading-bot",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Two-sleeve automated perp trading bot for UPDOWN on Celo",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "node src/index.js",
+    "test": "node --test test/"
+  },
+  "dependencies": {
+    "dotenv": "^17.3.1",
+    "ethers": "^5.8.0"
+  },
+  "overrides": {
+    "ws": "^8.21.0"
+  }
+}

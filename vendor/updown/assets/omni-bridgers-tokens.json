@@ -1,0 +1,320 @@
+{
+  "42220": [
+    {
+      "name": "USDT(CELO)",
+      "symbol": "USDT(Native)",
+      "decimals": 6,
+      "address": "0x48065fbBE25f71C9282ddf5e1cD6D6A887483D5e",
+      "isWrapped": true,
+      "baseSymbol": "USDT",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDT(CELO).png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    },
+    {
+      "name": "Celo native asset",
+      "symbol": "CELO(Native)",
+      "decimals": 18,
+      "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "isWrapped": true,
+      "baseSymbol": "CELO",
+      "imageUrl": "https://api.crosschainx.io/images/coins/CELO.png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    },
+    {
+      "name": "USDC(CELO)",
+      "symbol": "USDC(Native)",
+      "decimals": 6,
+      "address": "0xcebA9300f2b948710d2653dD7B07f33A8B32118C",
+      "isWrapped": true,
+      "baseSymbol": "USDC",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDC(CELO).png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    },
+    {
+      "name": "ETH(CELO)",
+      "symbol": "ETH(Native)",
+      "decimals": 18,
+      "address": "0xD221812de1BD094f35587EE8E174B07B6167D9Af",
+      "isWrapped": true,
+      "baseSymbol": "ETH",
+      "imageUrl": "https://api.crosschainx.io/images/coins/ETH(CELO).png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    },
+    {
+      "name": "NGNm(CELO)",
+      "symbol": "NGNm(Native)",
+      "decimals": 18,
+      "address": "0xE2702Bd97ee33c88c8f6f92DA3B733608aa76F71",
+      "isWrapped": true,
+      "baseSymbol": "NGNm",
+      "imageUrl": "https://api.crosschainx.io/images/coins/NGNm(CELO).png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    },
+    {
+      "name": "JPYm(CELO)",
+      "symbol": "JPYm(Native)",
+      "decimals": 18,
+      "address": "0xc45eCF20f3CD864B32D9794d6f76814aE8892e20",
+      "isWrapped": true,
+      "baseSymbol": "JPYm",
+      "imageUrl": "https://api.crosschainx.io/images/coins/JPYm(CELO).png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    },
+    {
+      "name": "EURm(CELO)",
+      "symbol": "EURm(Native)",
+      "decimals": 18,
+      "address": "0xD8763CBa276a3738E6DE85b4b3bF5FDed6D6cA73",
+      "isWrapped": true,
+      "baseSymbol": "EURm",
+      "imageUrl": "https://api.crosschainx.io/images/coins/EURm(CELO).png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    },
+    {
+      "name": "BTC(CELO)",
+      "symbol": "BTC",
+      "decimals": 8,
+      "address": "0x8aC2901Dd8A1F17a1A4768A6bA4C3751e3995B2D",
+      "isWrapped": true,
+      "baseSymbol": "BTC",
+      "imageUrl": "https://api.crosschainx.io/images/coins/BTC(CELO).png",
+      "chainId": 42220,
+      "mainNetwork": "CELO"
+    }
+  ],
+  "56": [
+    {
+      "name": "BNB(BSC)",
+      "symbol": "BNB",
+      "decimals": 18,
+      "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "isWrapped": true,
+      "baseSymbol": "BNB",
+      "imageUrl": "https://api.crosschainx.io/images/coins/BNB(BSC).png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    },
+    {
+      "name": "USDT(BSC)",
+      "symbol": "USDT",
+      "decimals": 18,
+      "address": "0x55d398326f99059ff775485246999027b3197955",
+      "isWrapped": true,
+      "baseSymbol": "USDT",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDT(BSC).png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    },
+    {
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 18,
+      "address": "0x8ac76a51cc950d9822d68b83fe1ad97b32cd580d",
+      "isWrapped": true,
+      "baseSymbol": "USDC",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDC(BSC).png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    },
+    {
+      "name": "PancakeSwap",
+      "symbol": "CAKE",
+      "decimals": 18,
+      "address": "0x0e09fabb73bd3ade0a17ecc321fd13a19e81ce82",
+      "isWrapped": true,
+      "baseSymbol": "CAKE",
+      "imageUrl": "https://api.crosschainx.io/images/coins/CAKE(BSC).png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    },
+    {
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "decimals": 18,
+      "address": "0x2170ed0880ac9a755fd29b2688956bd959f933f8",
+      "isWrapped": true,
+      "baseSymbol": "ETH",
+      "imageUrl": "https://api.crosschainx.io/images/coins/ETH(BSC).png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    },
+    {
+      "name": "DAI",
+      "symbol": "DAI",
+      "decimals": 18,
+      "address": "0x1af3f329e8be154074d8769d1ffa4ee058b1dbc3",
+      "isWrapped": true,
+      "baseSymbol": "DAI",
+      "imageUrl": "https://api.crosschainx.io/images/coins/DAI(BSC).png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    },
+    {
+      "name": "Uniswap",
+      "symbol": "UNI",
+      "decimals": 18,
+      "address": "0xbf5140a22578168fd562dccf235e5d43a02ce9b1",
+      "isWrapped": true,
+      "baseSymbol": "UNI",
+      "imageUrl": "https://api.crosschainx.io/images/coins/UNI.png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    },
+    {
+      "name": "BTCB",
+      "symbol": "BTCB",
+      "decimals": 18,
+      "address": "0x7130d2a12b9bcbfae4f2634d864a1ee1ce3ead9c",
+      "isWrapped": true,
+      "baseSymbol": "BTCB",
+      "imageUrl": "https://api.crosschainx.io/images/coins/UNI.png",
+      "chainId": 56,
+      "mainNetwork": "BSC"
+    }
+  ],
+  "1": [
+    {
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "decimals": 18,
+      "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "isWrapped": true,
+      "baseSymbol": "ETH",
+      "imageUrl": "https://api.crosschainx.io/images/coins/ETH(BSC).png",
+      "chainId": 1,
+      "mainNetwork": "ETH"
+    },
+    {
+      "name": "USDT",
+      "symbol": "USDT",
+      "decimals": 6,
+      "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+      "isWrapped": true,
+      "baseSymbol": "USDT",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDT(ERC20).png",
+      "chainId": 1,
+      "mainNetwork": "ETH"
+    },
+    {
+      "name": "USDC",
+      "symbol": "USDC",
+      "decimals": 6,
+      "address": "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48",
+      "isWrapped": true,
+      "baseSymbol": "USDC",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDC(ERC20).png",
+      "chainId": 1,
+      "mainNetwork": "ETH"
+    },
+    {
+      "name": "wETH",
+      "symbol": "wETH",
+      "decimals": 18,
+      "address": "0xc02aaa39b223fe8d0a0e5c4f27ead9083c756cc2",
+      "isWrapped": true,
+      "baseSymbol": "wETH",
+      "imageUrl": "https://api.crosschainx.io/images/coins/wETH(ERC20).png",
+      "chainId": 1,
+      "mainNetwork": "ETH"
+    },
+    {
+      "name": "Dai Stablecoin",
+      "symbol": "DAI",
+      "decimals": 18,
+      "address": "0x6B175474E89094C44Da98b954EedeAC495271d0F",
+      "isWrapped": true,
+      "baseSymbol": "DAI",
+      "imageUrl": "https://api.crosschainx.io/images/coins/DAI.png",
+      "chainId": 1,
+      "mainNetwork": "ETH"
+    },
+    {
+      "name": "ApeCoin",
+      "symbol": "APE",
+      "decimals": 18,
+      "address": "0x4d224452801aced8b2f0aebe155379bb5d594381",
+      "isWrapped": true,
+      "baseSymbol": "APE",
+      "imageUrl": "https://api.crosschainx.io/images/coins/APE.png",
+      "chainId": 1,
+      "mainNetwork": "ETH"
+    }
+  ],
+  "42161": [
+    {
+      "name": "ETH-ARB",
+      "symbol": "ETH",
+      "decimals": 18,
+      "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "isWrapped": true,
+      "baseSymbol": "ETH",
+      "imageUrl": "https://api.crosschainx.io/images/coins/ETH(ARB).png",
+      "chainId": 42161,
+      "mainNetwork": "ARBITRUM"
+    },
+    {
+      "name": "Tether USD",
+      "symbol": "USDT",
+      "decimals": 6,
+      "address": "0xfd086bc7cd5c481dcc9c85ebe478a1c0b69fcbb9",
+      "isWrapped": true,
+      "baseSymbol": "USDT",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDT(ARB).png",
+      "chainId": 42161,
+      "mainNetwork": "ARBITRUM"
+    },
+    {
+      "name": "USD Coin",
+      "symbol": "USDC",
+      "decimals": 6,
+      "address": "0xaf88d065e77c8cC2239327C5EDb3A432268e5831",
+      "isWrapped": true,
+      "baseSymbol": "USDC",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDC(ARB).png",
+      "chainId": 42161,
+      "mainNetwork": "ARBITRUM"
+    },
+    {
+      "name": "Arbitrum",
+      "symbol": "ARB",
+      "decimals": 18,
+      "address": "0x912CE59144191C1204E64559FE8253a0e49E6548",
+      "isWrapped": true,
+      "baseSymbol": "ARB",
+      "imageUrl": "https://api.crosschainx.io/images/coins/ARB(ARB).png",
+      "chainId": 42161,
+      "mainNetwork": "ARBITRUM"
+    }
+  ],
+  "8453": [
+    {
+      "name": "ETH(BASE)",
+      "symbol": "ETH",
+      "decimals": 18,
+      "address": "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee",
+      "isWrapped": true,
+      "baseSymbol": "ETH",
+      "imageUrl": "https://api.crosschainx.io/images/coins/ETH(BASE).png",
+      "chainId": 8453,
+      "mainNetwork": "BASE"
+    },
+    {
+      "name": "USDC(BASE)",
+      "symbol": "USDC",
+      "decimals": 6,
+      "address": "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913",
+      "isWrapped": true,
+      "baseSymbol": "USDC",
+      "imageUrl": "https://api.crosschainx.io/images/coins/USDC(BASE).png",
+      "chainId": 8453,
+      "mainNetwork": "BASE"
+    }
+  ]
+}

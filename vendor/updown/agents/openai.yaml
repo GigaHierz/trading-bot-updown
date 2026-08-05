@@ -1,0 +1,4 @@
+interface:
+  display_name: "UPDOWN Celo Trading"
+  short_description: "Trade and manage UPDOWN perpetuals safely on Celo"
+  default_prompt: "Use $updown to preview and manage one UPDOWN trading action on Celo."

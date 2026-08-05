@@ -1,0 +1,24 @@
+{
+  "abi": [
+    { "type": "error", "name": "InsufficientExecutionFee", "inputs": [
+      { "name": "minExecutionFee", "type": "uint256" },
+      { "name": "executionFee", "type": "uint256" }
+    ]},
+    { "type": "error", "name": "InvalidExecutionFee", "inputs": [
+      { "name": "executionFee", "type": "uint256" },
+      { "name": "minExecutionFee", "type": "uint256" },
+      { "name": "maxExecutionFee", "type": "uint256" }
+    ]},
+    { "type": "error", "name": "EmptyPrimaryPrice", "inputs": [
+      { "name": "token", "type": "address" }
+    ]},
+    { "type": "error", "name": "MaxOpenInterestExceeded", "inputs": [
+      { "name": "openInterest", "type": "uint256" },
+      { "name": "maxOpenInterest", "type": "uint256" }
+    ]},
+    { "type": "error", "name": "MaxPoolUsdForDepositExceeded", "inputs": [
+      { "name": "poolUsd", "type": "uint256" },
+      { "name": "maxPoolUsdForDeposit", "type": "uint256" }
+    ]}
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "version": 1,
+  "lastRunAt": "2026-08-05T12:10:30.767Z",
+  "sleeves": {
+    "A": {
+      "equity": 10,
+      "initialEquity": 10,
+      "highWaterMark": 10,
+      "halted": false,
+      "positions": {},
+      "tradesToday": {
+        "date": null,
+        "count": 0
+      },
+      "lastSignalBar": {}
+    },
+    "B": {
+      "equity": 10,
+      "initialEquity": 10,
+      "highWaterMark": 10,
+      "halted": false,
+      "positions": {},
+      "tradesToday": {
+        "date": null,
+        "count": 0
+      },
+      "lastSignalBar": {}
+    }
+  },
+  "sim": {
+    "nextId": 1
+  }
+}

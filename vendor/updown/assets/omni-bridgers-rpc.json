@@ -1,0 +1,52 @@
+{
+  "42220": {
+    "chainId": 42220,
+    "mainNetwork": "CELO",
+    "symbol": "CELO",
+    "rpcUrls": [
+      "https://forno.celo.org",
+      "https://rpc.ankr.com/celo"
+    ],
+    "blockExplorerUrl": "https://celoscan.io"
+  },
+  "56": {
+    "chainId": 56,
+    "mainNetwork": "BSC",
+    "symbol": "BNB",
+    "rpcUrls": [
+      "https://bsc-dataseed.binance.org",
+      "https://rpc.ankr.com/bsc"
+    ],
+    "blockExplorerUrl": "https://bscscan.com"
+  },
+  "1": {
+    "chainId": 1,
+    "mainNetwork": "ETH",
+    "symbol": "ETH",
+    "rpcUrls": [
+      "https://mainnet.infura.io/v3/YOUR_INFURA_KEY",
+      "https://eth-mainnet.g.alchemy.com/v2/YOUR_ALCHEMY_KEY"
+    ],
+    "blockExplorerUrl": "https://etherscan.io"
+  },
+  "42161": {
+    "chainId": 42161,
+    "mainNetwork": "ARBITRUM",
+    "symbol": "ARB",
+    "rpcUrls": [
+      "https://arb1.arbitrum.io/rpc",
+      "https://rpc.ankr.com/arbitrum"
+    ],
+    "blockExplorerUrl": "https://arbiscan.io"
+  },
+  "8453": {
+    "chainId": 8453,
+    "mainNetwork": "BASE",
+    "symbol": "BASE",
+    "rpcUrls": [
+      "https://mainnet.base.org",
+      "https://base-mainnet.public.blastapi.io"
+    ],
+    "blockExplorerUrl": "https://basescan.org"
+  }
+}

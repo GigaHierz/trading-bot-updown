@@ -1,0 +1,4 @@
+node_modules/
+orders/
+.idea/
+assets/celo.env.local

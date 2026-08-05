@@ -1,0 +1,26 @@
+{
+  "abi": [
+    {
+      "inputs": [
+        { "name": "token", "type": "address" },
+        { "name": "data", "type": "bytes" }
+      ],
+      "name": "getOraclePrice",
+      "outputs": [
+        {
+          "components": [
+            { "name": "token", "type": "address" },
+            { "name": "min", "type": "uint256" },
+            { "name": "max", "type": "uint256" },
+            { "name": "timestamp", "type": "uint256" },
+            { "name": "provider", "type": "address" }
+          ],
+          "name": "",
+          "type": "tuple"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ]
+}

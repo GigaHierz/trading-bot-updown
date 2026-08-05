@@ -1,0 +1,56 @@
+{
+  "BTC": {
+    "symbol": "wBTC",
+    "description": "Wrapped BTC, used as collateral for BTC/USDT perpetual trading on Updown",
+    "address": "0x57433eD8eC1FAD60b8E1dcFdD1fBD56aBA19C04C",
+    "decimals": 8
+  },
+  "USDT": {
+    "symbol": "wUSDT",
+    "description": "Wrapped USDT, used as collateral for USDT/USDT perpetual trading on Updown",
+    "address": "0xd96a1ac57a180a3819633bCE3dC602Bd8972f595",
+    "decimals": 6
+  },
+  "ETH": {
+    "symbol": "wETH",
+    "description": "Wrapped ETH, used as collateral for ETH/USDT perpetual trading on Updown",
+    "address": "0x4C2675e9067Cd7Fc859165AC5F37f1D82d825A1E",
+    "decimals": 18
+  },
+  "CELO": {
+    "symbol": "wCELO",
+    "description": "Wrapped CELO, used as collateral for CELO/USDT perpetual trading on Updown",
+    "address": "0x5B1B6DCB4E907b9755E27Db88bD62B9750a13C60",
+    "decimals": 18
+  },
+  "EURm": {
+    "symbol": "wEURm",
+    "description": "Wrapped EURm, used as collateral for EURm/USDT perpetual trading on Updown",
+    "address": "0x2350246BAE36EE301B108cA8fE58D795A8DBdb4e",
+    "decimals": 18
+  },
+  "JPYm": {
+    "symbol": "wJPYm",
+    "description": "Wrapped JPYm, used as collateral for JPYm/USDT perpetual trading on Updown",
+    "address": "0x29206D4B6183A29Ef5B68494B0850330e98f27F4",
+    "decimals": 18
+  },
+  "NGNm": {
+    "symbol": "wNGNm",
+    "description": "Wrapped NGNm, used as collateral for NGNm/USDT perpetual trading on Updown",
+    "address": "0xEb8A6C14e625A05F06eA914Db627dd65175b4505",
+    "decimals": 18
+  },
+  "AUDm": {
+    "symbol": "wAUDm",
+    "description": "Wrapped AUDm, used as collateral for AUDm/USDT perpetual trading on Updown",
+    "address": "0x91CA0318Fc30D728640f0E6329205eE1F538F17B",
+    "decimals": 18
+  },
+  "GBPm": {
+    "symbol": "wGBPm",
+    "description": "Wrapped GBPm, used as collateral for GBPm/USDT perpetual trading on Updown",
+    "address": "0x7Ef503a2722cdfa7E99f2A59771f7E2390c2DF76",
+    "decimals": 18
+  }
+}
