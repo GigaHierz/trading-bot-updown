@@ -1,18 +1,32 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-05T16:24:47.399Z",
+  "lastRunAt": "2026-08-05T17:59:07.247Z",
   "sleeves": {
     "A": {
       "equity": 10,
       "initialEquity": 10,
       "highWaterMark": 10,
       "halted": false,
-      "positions": {},
-      "tradesToday": {
-        "date": null,
-        "count": 0
+      "positions": {
+        "ETH": {
+          "status": "open",
+          "isLong": true,
+          "notionalUsd": 15,
+          "collateralUsd": 5,
+          "entryPrice": 1901.4974299999997,
+          "tpPrice": 2009.5586,
+          "slPrice": 1848.4147,
+          "openedAt": "2026-08-05T17:59:07.246Z",
+          "openOrderKey": "sim-1"
+        }
       },
-      "lastSignalBar": {}
+      "tradesToday": {
+        "date": "2026-08-05",
+        "count": 1
+      },
+      "lastSignalBar": {
+        "ETH": 1785945600000
+      }
     },
     "B": {
       "equity": 10,
@@ -28,6 +42,6 @@
     }
   },
   "sim": {
-    "nextId": 1
+    "nextId": 2
   }
 }
