@@ -94,22 +94,37 @@ async function placeExit({ market, isLong, kind, triggerPrice }) {
     ? triggerPrice * (1 - dir * 0.005)
     : triggerPrice * (1 - dir * 0.03)
 
+  const orderType = isTp ? ORDER_TYPE.LimitDecrease : ORDER_TYPE.StopLossDecrease
   const cfgFile = writeTmpConfig({
     market: m.marketToken,
     indexToken: m.indexToken,
     initialCollateralToken: WUSDT.address,
     isLong,
     closePercent: 100,
-    orderType: isTp ? ORDER_TYPE.LimitDecrease : ORDER_TYPE.StopLossDecrease,
+    orderType,
     triggerPriceHuman: formatPrice(triggerPrice),
     acceptablePriceHuman: formatPrice(acceptable),
   })
   try {
     const stdout = await runScript('close-position.js', [cfgFile])
-    return { orderKey: parseOrderKey(stdout), txHash: parseTxHash(stdout) }
+    // close-position.js can't always decode the OrderCreated event (it is
+    // emitted by the EventEmitter contract, not the router), so fall back to
+    // reading the resident order from the DataStore.
+    const orderKey =
+      parseOrderKey(stdout) ||
+      (await findOrderKeyOnChain({ market, isLong, orderType }))
+    return { orderKey, txHash: parseTxHash(stdout) }
   } finally {
     fs.unlinkSync(cfgFile)
   }
+}
+
+async function findOrderKeyOnChain({ market, isLong, orderType }) {
+  const snap = await snapshot([market])
+  const match = snap.orders
+    .filter((o) => o.market === market && o.isLong === isLong && o.orderType === orderType)
+    .sort((a, b) => b.updatedAtTime - a.updatedAtTime)[0]
+  return match ? match.key : null
 }
 
 async function closeMarket({ market, isLong }) {
