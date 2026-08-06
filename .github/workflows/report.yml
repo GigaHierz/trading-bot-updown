@@ -1,0 +1,53 @@
+name: health-report
+
+on:
+  schedule:
+    - cron: "0 8,20 * * *" # 09:00 and 21:00 Europe/Lisbon (WEST)
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  report:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main # always report on the state the bot actually commits to
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci
+
+      - name: Generate report
+        env:
+          CELO_PRIVATE_KEY: ${{ secrets.CELO_PRIVATE_KEY }}
+          CELO_RPC_URL: ${{ secrets.CELO_RPC_URL }}
+          CELO_CHAIN_ID: "42220"
+        run: |
+          node tools/health-report.js > report.md
+          cat report.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Post to tracking issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "@GigaHierz — UPDOWN bot check-in $(date -u +'%Y-%m-%d %H:%M UTC')"
+            echo ""
+            cat report.md
+          } > comment.md
+          ISSUE=$(gh issue list --repo "$GITHUB_REPOSITORY" --label bot-report --state open --json number --jq '.[0].number')
+          if [ -z "$ISSUE" ]; then
+            gh label create bot-report --repo "$GITHUB_REPOSITORY" --color 1D76DB --force
+            gh issue create --repo "$GITHUB_REPOSITORY" --label bot-report \
+              --title "UPDOWN bot check-ins" --body-file comment.md
+          else
+            gh issue comment "$ISSUE" --repo "$GITHUB_REPOSITORY" --body-file comment.md
+          fi
