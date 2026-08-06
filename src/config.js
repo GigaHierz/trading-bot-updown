@@ -49,7 +49,8 @@ module.exports = {
       timeStopHours: 96,
       maxConcurrentPositions: 1,
       maxEntriesPerDay: 1,
-      haltEquityUsd: 5,
+      // Halt for good once equity falls to this fraction of starting equity.
+      haltFraction: 0.5,
     },
   },
 

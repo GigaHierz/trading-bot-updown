@@ -59,7 +59,9 @@ async function main() {
   await reconcile({ state, snap, candlesByMarket, adapter, now: Date.now() })
 
   if (applyDrawdownHalt(state)) {
-    summary(`🛑 Sleeve B hit the ${config.sleeves.B.haltEquityUsd} USD floor — halted permanently`)
+    summary(
+      `🛑 Sleeve B hit its ${(config.sleeves.B.haltFraction * 100).toFixed(0)}% drawdown floor — halted permanently`,
+    )
   }
 
   const now = new Date()

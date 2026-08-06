@@ -58,7 +58,7 @@ function filterIntents({ intents, snapshot, state }) {
 // Sleeve B capital-protection rule: at or below the floor, halt for good.
 function applyDrawdownHalt(state) {
   const sleeve = state.sleeves.B
-  const floor = config.sleeves.B.haltEquityUsd
+  const floor = sleeve.initialEquity * config.sleeves.B.haltFraction
   if (!sleeve.halted && sleeve.equity <= floor) {
     sleeve.halted = true
     return true
