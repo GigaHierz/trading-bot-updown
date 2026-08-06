@@ -3,9 +3,9 @@
   "lastRunAt": "2026-08-06T09:18:04.438Z",
   "sleeves": {
     "A": {
-      "equity": 10,
-      "initialEquity": 10,
-      "highWaterMark": 10,
+      "equity": 5.45,
+      "initialEquity": 5.45,
+      "highWaterMark": 5.45,
       "halted": false,
       "positions": {
         "ETH": {
@@ -29,9 +29,9 @@
       }
     },
     "B": {
-      "equity": 10,
-      "initialEquity": 10,
-      "highWaterMark": 10,
+      "equity": 5.45,
+      "initialEquity": 5.45,
+      "highWaterMark": 5.45,
       "halted": false,
       "positions": {},
       "tradesToday": {
