@@ -1,9 +1,9 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-08T06:02:14.931Z",
+  "lastRunAt": "2026-08-08T07:25:48.832Z",
   "sleeves": {
     "A": {
-      "equity": 10.43,
+      "equity": 10.01,
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
@@ -21,21 +21,6 @@
           "tpOrderKey": "0x93cf755f4398eecae9f2041e49801709330331ee5bf043c563b0587d575690b3",
           "hasTpOnChain": true,
           "slOrderKey": null,
-          "hasSlOnChain": true
-        },
-        "CELO": {
-          "status": "open",
-          "isLong": false,
-          "notionalUsd": 15.65,
-          "collateralUsd": 5.210604,
-          "entryPrice": 0.06066,
-          "tpPrice": 0.0570204,
-          "slPrice": 0.0621765,
-          "openedAt": "2026-08-07T19:41:42.260Z",
-          "openOrderKey": null,
-          "tpOrderKey": "0x663b0e6e9e04aeec13b16c74b4df93d791a1849c5860da5be1fdfa976a1af8c5",
-          "hasTpOnChain": true,
-          "slOrderKey": "0xe902bd9a7891fb617e95e1bef114e53337f5be0928ede08bbd10178afe48a38c",
           "hasSlOnChain": true
         }
       },
