@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-09T13:27:31.466Z",
+  "lastRunAt": "2026-08-09T14:04:48.883Z",
   "sleeves": {
     "A": {
       "equity": 10.01,
@@ -9,7 +9,7 @@
       "halted": false,
       "positions": {
         "ETH": {
-          "status": "open",
+          "status": "closing",
           "isLong": true,
           "notionalUsd": 15.65,
           "collateralUsd": 5.213736,
@@ -21,7 +21,8 @@
           "tpOrderKey": "0x93cf755f4398eecae9f2041e49801709330331ee5bf043c563b0587d575690b3",
           "hasTpOnChain": true,
           "slOrderKey": null,
-          "hasSlOnChain": true
+          "hasSlOnChain": true,
+          "closeReason": "time-stop after 48h"
         }
       },
       "tradesToday": {
