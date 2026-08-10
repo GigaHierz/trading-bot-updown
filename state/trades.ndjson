@@ -6,3 +6,4 @@
 {"ts":"2026-08-08T07:25:48.830Z","sleeve":"A","market":"CELO","side":"short","action":"sl","notionalUsd":15.65,"entryPrice":0.06066,"exitPrice":0.06,"pnlUsd":-0.42,"equityAfter":10.01,"dry":false}
 {"ts":"2026-08-09T14:57:51.801Z","sleeve":"A","market":"ETH","side":"long","action":"time-stop after 48h","notionalUsd":15.65,"entryPrice":1932.25,"exitPrice":1923.56,"pnlUsd":-0.1,"equityAfter":9.91,"dry":false}
 {"ts":"2026-08-10T00:42:07.262Z","sleeve":"A","market":"ETH","side":"short","action":"open","notionalUsd":14.87,"entryPrice":1910.78,"tpPrice":1796.1332,"slPrice":1958.5495,"reason":"EMA8<EMA24 + donchian low break @ 1910.78","txHash":"0xce6d70ac9054be70344f04450ed91466639c0835c4fd6337274223eb451030ea","dry":false}
+{"ts":"2026-08-10T17:15:08.473Z","sleeve":"B","market":"BTC","side":"long","action":"sl","notionalUsd":12,"entryPrice":65036,"exitPrice":64060.46,"pnlUsd":-0.2,"equityAfter":10.25,"dry":false}
