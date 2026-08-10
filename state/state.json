@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-10T21:07:54.864Z",
+  "lastRunAt": "2026-08-10T22:04:44.461Z",
   "sleeves": {
     "A": {
       "equity": 9.91,
@@ -22,15 +22,30 @@
           "hasTpOnChain": true,
           "slOrderKey": "0x7135064a17284dd0df38556c21bc94ac9257456bea44698240392f27f8b88faa",
           "hasSlOnChain": true
+        },
+        "CELO": {
+          "status": "open",
+          "isLong": false,
+          "notionalUsd": 14.87,
+          "collateralUsd": 4.954047,
+          "entryPrice": 0.06233,
+          "tpPrice": 0.0585902,
+          "slPrice": 0.06388825,
+          "openedAt": "2026-08-10T22:03:34.994Z",
+          "openOrderKey": null,
+          "tpOrderKey": "0x06dfad97eafe08d14306d345e4fd8d25f9ff72207ebafe19bc2f725bae379b85",
+          "hasTpOnChain": true,
+          "slOrderKey": "0xfc2c2b775d258c3914f652787aac5ae86674c9c8e1e9d48098292198f87905ac",
+          "hasSlOnChain": true
         }
       },
       "tradesToday": {
         "date": "2026-08-10",
-        "count": 1
+        "count": 2
       },
       "lastSignalBar": {
         "ETH": 1786316400000,
-        "CELO": 1786125600000
+        "CELO": 1786395600000
       }
     },
     "B": {
