@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-12T21:13:03.790Z",
+  "lastRunAt": "2026-08-12T22:08:55.628Z",
   "sleeves": {
     "A": {
       "equity": 10.07,
@@ -9,7 +9,7 @@
       "halted": false,
       "positions": {
         "CELO": {
-          "status": "open",
+          "status": "closing",
           "isLong": false,
           "notionalUsd": 14.87,
           "collateralUsd": 4.954047,
@@ -21,7 +21,8 @@
           "tpOrderKey": "0x06dfad97eafe08d14306d345e4fd8d25f9ff72207ebafe19bc2f725bae379b85",
           "hasTpOnChain": true,
           "slOrderKey": "0xfc2c2b775d258c3914f652787aac5ae86674c9c8e1e9d48098292198f87905ac",
-          "hasSlOnChain": true
+          "hasSlOnChain": true,
+          "closeReason": "time-stop after 48h"
         },
         "ETH": {
           "status": "open",
