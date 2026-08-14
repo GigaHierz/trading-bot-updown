@@ -1,37 +1,36 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-14T11:34:44.920Z",
+  "lastRunAt": "2026-08-14T12:37:29.494Z",
   "sleeves": {
     "A": {
-      "equity": 10.45,
+      "equity": 10.18,
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
       "positions": {
-        "ETH": {
-          "status": "closing",
-          "isLong": true,
-          "notionalUsd": 15.11,
-          "collateralUsd": 5.030926,
-          "entryPrice": 1905.83,
-          "tpPrice": 2020.1798,
-          "slPrice": 1858.1842,
-          "openedAt": "2026-08-12T10:47:55.131Z",
+        "CELO": {
+          "status": "open",
+          "isLong": false,
+          "notionalUsd": 15.27,
+          "collateralUsd": 5.083885,
+          "entryPrice": 0.05979,
+          "tpPrice": 0.0562026,
+          "slPrice": 0.06128475,
+          "openedAt": "2026-08-14T12:34:29.142Z",
           "openOrderKey": null,
-          "tpOrderKey": "0x0c12f8cd2cd7938419bff05d4c37d54a5f6cf7fa20af773aa9ca893679124ae0",
+          "tpOrderKey": "0x469894a34b3d1c443332c14dc3301ee799e64aa7d7aad4e5436002ad89eaf06e",
           "hasTpOnChain": true,
-          "slOrderKey": "0x5af18ae018f52b79be2946b4541ef28df321b6dcfd02592adb538ad430248e82",
-          "hasSlOnChain": true,
-          "closeReason": "time-stop after 49h"
+          "slOrderKey": "0x3f8028cea59f4da6d38244303d3982a564d6690e1db66bcdefd5a2340b89b0c3",
+          "hasSlOnChain": true
         }
       },
       "tradesToday": {
-        "date": "2026-08-12",
+        "date": "2026-08-14",
         "count": 1
       },
       "lastSignalBar": {
         "ETH": 1786525200000,
-        "CELO": 1786395600000
+        "CELO": 1786705200000
       }
     },
     "B": {
@@ -39,13 +38,25 @@
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {},
+      "positions": {
+        "BTC": {
+          "status": "open",
+          "isLong": false,
+          "notionalUsd": 12,
+          "collateralUsd": 7.995195,
+          "entryPrice": 62870,
+          "tpPrice": 60983.9,
+          "slPrice": 63813.05,
+          "openedAt": "2026-08-14T12:37:13.494Z",
+          "openOrderKey": null
+        }
+      },
       "tradesToday": {
-        "date": "2026-08-10",
+        "date": "2026-08-14",
         "count": 1
       },
       "lastSignalBar": {
-        "BTC": 1786363200000
+        "BTC": 1786694400000
       }
     }
   },
