@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-14T12:37:29.494Z",
+  "lastRunAt": "2026-08-14T14:05:50.847Z",
   "sleeves": {
     "A": {
       "equity": 10.18,
@@ -48,7 +48,9 @@
           "tpPrice": 60983.9,
           "slPrice": 63813.05,
           "openedAt": "2026-08-14T12:37:13.494Z",
-          "openOrderKey": null
+          "openOrderKey": null,
+          "hasTpOnChain": false,
+          "hasSlOnChain": false
         }
       },
       "tradesToday": {
