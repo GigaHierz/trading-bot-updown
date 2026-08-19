@@ -1,29 +1,13 @@
 {
   "version": 1,
-  "lastRunAt": "2026-08-19T15:25:50.360Z",
+  "lastRunAt": "2026-08-19T15:54:05.153Z",
   "sleeves": {
     "A": {
-      "equity": 10.18,
+      "equity": 9.94,
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {
-        "CELO": {
-          "status": "open",
-          "isLong": false,
-          "notionalUsd": 15.27,
-          "collateralUsd": 5.083885,
-          "entryPrice": 0.05979,
-          "tpPrice": 0.0562026,
-          "slPrice": 0.06128475,
-          "openedAt": "2026-08-14T12:34:29.142Z",
-          "openOrderKey": null,
-          "tpOrderKey": "0x469894a34b3d1c443332c14dc3301ee799e64aa7d7aad4e5436002ad89eaf06e",
-          "hasTpOnChain": true,
-          "slOrderKey": "0x3f8028cea59f4da6d38244303d3982a564d6690e1db66bcdefd5a2340b89b0c3",
-          "hasSlOnChain": true
-        }
-      },
+      "positions": {},
       "tradesToday": {
         "date": "2026-08-14",
         "count": 1
@@ -40,7 +24,7 @@
       "halted": false,
       "positions": {
         "BTC": {
-          "status": "open",
+          "status": "closing",
           "isLong": false,
           "notionalUsd": 12,
           "collateralUsd": 7.995195,
@@ -50,7 +34,9 @@
           "openedAt": "2026-08-14T12:37:13.494Z",
           "openOrderKey": null,
           "hasTpOnChain": false,
-          "hasSlOnChain": false
+          "hasSlOnChain": true,
+          "closeReason": "trend filter flat (spread 0.39%)",
+          "slOrderKey": "0x79452027f9960fc8f577367b40f218e2c069ce9bf7720ce09be7276d63d1ae60"
         }
       },
       "tradesToday": {
