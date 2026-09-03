@@ -1,20 +1,36 @@
 {
   "version": 1,
-  "lastRunAt": "2026-09-03T01:14:01.000Z",
+  "lastRunAt": "2026-09-03T05:25:25.534Z",
   "sleeves": {
     "A": {
       "equity": 9.94,
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {},
+      "positions": {
+        "CELO": {
+          "status": "open",
+          "isLong": true,
+          "notionalUsd": 14.91,
+          "collateralUsd": 4.964034,
+          "entryPrice": 0.08174,
+          "tpPrice": 0.0866444,
+          "slPrice": 0.0796965,
+          "openedAt": "2026-09-03T05:22:30.002Z",
+          "openOrderKey": null,
+          "tpOrderKey": "0x5103656e76335f433f7a05126a44681c198459522b36b8231cce7e106b513629",
+          "hasTpOnChain": true,
+          "slOrderKey": "0x5f38cf126930a7d440193aa1eeafa6664324db45b03077d15bdf7919dacb9214",
+          "hasSlOnChain": true
+        }
+      },
       "tradesToday": {
-        "date": "2026-08-14",
+        "date": "2026-09-03",
         "count": 1
       },
       "lastSignalBar": {
         "ETH": 1786525200000,
-        "CELO": 1786705200000
+        "CELO": 1788408000000
       }
     },
     "B": {
@@ -22,13 +38,29 @@
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {},
+      "positions": {
+        "BTC": {
+          "status": "open",
+          "isLong": true,
+          "notionalUsd": 12,
+          "collateralUsd": 7.992797,
+          "entryPrice": 77702.8,
+          "tpPrice": 80033.884,
+          "slPrice": 76537.258,
+          "openedAt": "2026-09-03T05:24:54.763Z",
+          "openOrderKey": null,
+          "tpOrderKey": "0x6b5cb3e9a14c5a657c891ae892e010478dc1bb7efaba906cd7477ba21aa94610",
+          "hasTpOnChain": true,
+          "slOrderKey": "0xa16567a3371a512fd01ee76fcb6f40db5fbe83e73851ab3a70907e1349b529c0",
+          "hasSlOnChain": true
+        }
+      },
       "tradesToday": {
-        "date": "2026-08-14",
+        "date": "2026-09-03",
         "count": 1
       },
       "lastSignalBar": {
-        "BTC": 1786694400000
+        "BTC": 1788393600000
       }
     }
   },
