@@ -98,7 +98,7 @@ async function main() {
     }
     try {
       if (intent.kind === 'open') {
-        txCount += await executeOpen({ adapter, dry, state, intent, symbols })
+        txCount += await executeOpen({ adapter, dry, state, intent, symbols, livePrices: snap.prices })
       } else if (intent.kind === 'close') {
         txCount += await executeClose({ adapter, dry, state, intent, prices })
       } else if (intent.kind === 'protect') {
@@ -127,9 +127,25 @@ async function main() {
   flushSummary()
 }
 
-async function executeOpen({ adapter, dry, state, intent, symbols }) {
+async function executeOpen({ adapter, dry, state, intent, symbols, livePrices }) {
   const sleeve = state.sleeves[intent.sleeve]
   let tx = 1
+
+  // Staleness gate: the signal comes from the last CLOSED candle, which can be
+  // 30+ minutes old on this cron. If price already retraced >1% against the
+  // trade, the breakout is gone — entering would set exits off a stale anchor.
+  if (!dry && livePrices && livePrices[intent.market]) {
+    const now = livePrices[intent.market]
+    const dir = intent.isLong ? 1 : -1
+    const drift = (dir * (now - intent.refPrice)) / intent.refPrice
+    if (drift < -0.01) {
+      summary(
+        `⏭️ ${intent.sleeve}/${intent.market}: signal stale — price moved ${(drift * 100).toFixed(2)}% against entry since signal bar; skipping`,
+      )
+      sleeve.lastSignalBar[intent.market] = intent.signalBarTs // don't retry this bar
+      return 0
+    }
+  }
 
   const res = await adapter.openPosition(intent)
   const record = {
@@ -175,6 +191,24 @@ async function executeOpen({ adapter, dry, state, intent, symbols }) {
       record.status = 'open'
       record.notionalUsd = pos.sizeUsd || record.notionalUsd
       record.collateralUsd = pos.collateralUsd || record.collateralUsd
+      // Re-anchor to the oracle price at fill time: the signal-bar close can be
+      // 30+ minutes stale, which would put TP/SL at the wrong distances.
+      try {
+        const { oraclePrice, getProvider } = require('./exchange/chain-read')
+        const fill = await oraclePrice(getProvider(), intent.market)
+        if (fill > 0) {
+          const dir = intent.isLong ? 1 : -1
+          const cfg = config.sleeves[intent.sleeve]
+          record.entryPrice = fill
+          record.tpPrice = round6(fill * (1 + dir * cfg.tpPct))
+          record.slPrice = round6(fill * (1 - dir * cfg.slPct))
+          summary(
+            `🎯 ${intent.sleeve}/${intent.market}: exits re-anchored to fill price ${fill} (TP ${record.tpPrice} / SL ${record.slPrice})`,
+          )
+        }
+      } catch (err) {
+        summary(`⚠️ could not re-anchor to fill price, using signal price: ${String(err.message).slice(0, 120)}`)
+      }
     }
     if (record.status === 'open' || pos) {
       const tp = await adapter.placeExit({
