@@ -1,4 +1,14 @@
 // Every strategy/risk tunable in one place.
+
+// Keeper execution-fee arithmetic. Kept as bare constants so the gates below
+// are derived from one source rather than hand-tuned independently.
+const KEEPER_FEE_CELO = 1.4
+const FEE_MARGIN_CELO = 0.2
+const ENTRY_ORDERS = 3 // open + TP + SL
+const EXIT_RESERVE_ORDERS = 3 // worst case later: re-arm TP, re-arm SL, close
+// Binary floats make these read as 8.599999999999998 in alerts; keep 1dp.
+const celo = (n) => Math.round(n * 10) / 10
+
 module.exports = {
   // Market allowlist per sleeve. Disjoint on purpose: on-chain positions are
   // attributed to a sleeve purely by market, so the sets must never overlap.
@@ -55,10 +65,28 @@ module.exports = {
   },
 
   risk: {
-    // Each keeper order prepays >=1.4 CELO execution fee (refunded on
-    // execution/cancel). Entry = open + TP + SL = 3 orders in flight.
-    minCeloForEntry: 5,
-    minCeloForExit: 1.6,
+    // --- CELO execution-fee budget -------------------------------------
+    // Each keeper order prepays >=1.4 CELO (refunded on execution/cancel).
+    // Entry = open + TP + SL = 3 orders in flight.
+    keeperFeeCelo: KEEPER_FEE_CELO,
+    feeMarginCelo: FEE_MARGIN_CELO,
+    entryOrders: ENTRY_ORDERS,
+    exitReserveOrders: EXIT_RESERVE_ORDERS,
+    // Both gates are DERIVED from the numbers above so they can never drift
+    // apart again. They were independent constants (5 / 1.6) until
+    // 2026-08-14, when the bot legally opened a BTC short with 4.5 CELO,
+    // fell under the exit gate the same evening, could not keep the stop
+    // armed, and the trade ran ~6x past it -- 59% of the experiment's
+    // losses in one position. An entry must now leave behind enough to
+    // re-arm both exit legs AND market-close what it is about to open.
+    minCeloForEntry: celo(
+      KEEPER_FEE_CELO * (ENTRY_ORDERS + EXIT_RESERVE_ORDERS) + FEE_MARGIN_CELO,
+    ),
+    minCeloForExit: celo(KEEPER_FEE_CELO + FEE_MARGIN_CELO),
+    // Measured over the first 13 live round trips: ~21.4 CELO in, 4.17 left.
+    // Refunds are partial, so roughly one keeper fee is burned per trip.
+    celoPerRoundTrip: 1.3,
+    minCeloRunwayTrips: 6,
     minFreeUsdt: 2,
     maxTxPerRun: 8,
     stuckOrderMinutes: 45,

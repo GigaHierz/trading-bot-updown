@@ -32,7 +32,9 @@ jobs:
           node-version: 20
           cache: npm
 
-      - run: npm ci
+      # This job holds CELO_PRIVATE_KEY and the repo is public: never run
+      # lockfile lifecycle scripts in the same process as the signing key.
+      - run: npm ci --ignore-scripts
 
       - name: Run bot
         env:
@@ -54,7 +56,7 @@ jobs:
         run: |
           git config user.name "updown-bot"
           git config user.email "updown-bot@users.noreply.github.com"
-          git add state/
+          git add state/state.json state/trades.ndjson
           if git commit -m "state: $(date -u +%FT%TZ) [skip ci]"; then
             git pull --rebase && git push || (git pull --rebase && git push)
           fi

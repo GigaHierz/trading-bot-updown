@@ -23,11 +23,14 @@ jobs:
           node-version: 20
           cache: npm
 
-      - run: npm ci
+      # Public repo + lockfile lifecycle scripts; this job holds no secrets worth
+      # stealing now, but keep the habit consistent with bot.yml.
+      - run: npm ci --ignore-scripts
 
       - name: Generate report
         env:
-          CELO_PRIVATE_KEY: ${{ secrets.CELO_PRIVATE_KEY }}
+          # Reporting only reads chain state, so it gets the address, not the key.
+          CELO_WALLET_ADDRESS: ${{ vars.CELO_WALLET_ADDRESS }}
           CELO_RPC_URL: ${{ secrets.CELO_RPC_URL }}
           CELO_CHAIN_ID: "42220"
         run: |
