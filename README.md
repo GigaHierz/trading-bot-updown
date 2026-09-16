@@ -28,6 +28,44 @@ markets are excluded. Treat the whole wallet as money you can lose.
 Every entry immediately places **on-exchange** TP and SL orders, so positions
 stay protected even if scheduled runs are skipped.
 
+An entry is only allowed when the wallet holds enough CELO to place those
+orders **and** to re-arm and close them later (`minCeloForEntry`, derived in
+`src/config.js`). If a held position ever becomes unprotectable anyway, the
+gas guard closes it while the execution fee is still affordable rather than
+leaving it running without a stop.
+
+### Reviewing it
+
+| Command | Answers |
+|---|---|
+| `node tools/health-report.js` | Is it alive? Liveness, balances, gas runway. Posted twice daily. |
+| `node tools/perf-report.js` | What did it earn? Win rate, expectancy ± std err, cost drag. |
+| `node tools/weekly-review.js` | Should anything change? Trading + uptime + a CONTINUE/ADJUST/HALT call. Posted Mondays by `weekly-review.yml`, and committed to `reports/weekly/`. |
+| `node tools/backtest.js` | Would a change have helped? Offline replay at the real polling cadence. |
+
+The weekly review **never edits config**. Parameter changes are a human
+decision made against backtest evidence, and the review refuses to recommend
+one below 30 closed trades — a week of live trading is ~2 trades, which is
+noise.
+
+`reports/2026-09-16-strategy-review.md` is the first full review. Its finding:
+the signal has no edge and the cost floor is ~117bp per round trip against a
+gross edge of −7bp. Read it before funding anything further.
+
+### Backtesting
+
+```bash
+node tools/backtest.js --fetch-only --from 2026-03-01   # warm .cache/
+node tools/backtest.js --from 2026-03-01 --to 2026-09-15 --offline
+node tools/backtest.js --offline --seeds 5 \
+  --sweep 'A.slPct=0.025,0.04;A.tpPct=0.03,0.06'
+```
+
+The default output compares the strategy at every-bar polling against the
+cadence GitHub Actions actually delivers (~6.5 runs/day, measured, versus a
+nominal 48). Sweeps rank on basis points of notional per trade, score every
+cell across several cadence seeds, and flag cells whose |t| < 2.
+
 ### Controls (GitHub → Settings → Secrets and variables → Actions)
 
 | Kind | Name | Meaning |
@@ -36,6 +74,7 @@ stay protected even if scheduled runs are skipped.
 | Variable | `DRY_RUN` | Set to `false` to trade with real funds. Unset/other = simulation. |
 | Secret | `CELO_PRIVATE_KEY` | Wallet key. Never logged; the logger masks 64-hex strings. |
 | Secret | `CELO_RPC_URL` | e.g. `https://forno.celo.org` |
+| Variable | `CELO_WALLET_ADDRESS` | Wallet address. Lets the reporting workflows read chain state without the signing key. |
 
 ## Funding the wallet
 
