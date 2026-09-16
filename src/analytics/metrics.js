@@ -47,6 +47,14 @@ function summarize(trips) {
     profitFactor: grossLoss > 0 ? r4(grossProfit / grossLoss) : null,
     netPnlUsd: r2(pnls.reduce((a, b) => a + b, 0)),
     avgNotionalUsd: notionals.length ? r2(mean(notionals)) : null,
+    // Size-normalised edge. Necessary because both sleeves size off equity, so
+    // a losing config shrinks its own bets and its total PnL saturates near
+    // ruin -- ranking configs on net USD then rates every losing variant the
+    // same. Basis points of notional per trade does not saturate.
+    expectancyBps:
+      pnls.length && notionals.length && mean(notionals) > 0
+        ? r2((mean(pnls) / mean(notionals)) * 1e4)
+        : null,
     avgHoldHours: holds.length ? r2(mean(holds)) : null,
     best: pnls.length ? Math.max(...pnls) : null,
     worst: pnls.length ? Math.min(...pnls) : null,

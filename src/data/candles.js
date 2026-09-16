@@ -77,4 +77,4 @@ function closedBars(candles) {
   return candles.slice(0, -1)
 }
 
-module.exports = { getCandles, closedBars }
+module.exports = { getCandles, closedBars, BINANCE_HOSTS, fetchJson }

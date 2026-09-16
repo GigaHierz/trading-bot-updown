@@ -6,9 +6,9 @@ const { entriesToday } = require('../state/store')
 // Filtered trend-following on 4h BTC bars. Desired exposure is the direction
 // of EMA(fast) vs EMA(slow), but only when the spread exceeds a dead zone —
 // otherwise flat. Exits to flat when the filter drops out or flips.
-function tick({ candlesByMarket, sleeve, now }) {
-  const cfg = config.sleeves.B
-  const market = config.sleeveMarkets.B[0]
+// cfg/markets are injectable for the backtest sweep; live passes neither.
+function tick({ candlesByMarket, sleeve, now, cfg = config.sleeves.B, markets = config.sleeveMarkets.B }) {
+  const market = markets[0]
   const intents = []
 
   const position = sleeve.positions[market]

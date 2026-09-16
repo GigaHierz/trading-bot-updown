@@ -8,13 +8,13 @@ const { log, summary } = require('../log')
 // Brings state in line with reality. On-chain (or the sim candle history) is
 // the source of truth; state records are corrected, fills realized into
 // sleeve equity, and stuck keeper orders cleaned up.
-async function reconcile({ state, snap, candlesByMarket, adapter, now }) {
+async function reconcile({ state, snap, candlesByMarket, adapter, now, econ }) {
   const actions = []
 
   for (const [name, sleeve] of Object.entries(state.sleeves)) {
     for (const [market, record] of Object.entries({ ...sleeve.positions })) {
       if (adapter.dry) {
-        reconcileSim({ state, name, sleeve, market, record, candlesByMarket, now })
+        reconcileSim({ state, name, sleeve, market, record, candlesByMarket, now, econ })
         continue
       }
 
@@ -85,7 +85,7 @@ async function reconcile({ state, snap, candlesByMarket, adapter, now }) {
 
 // Dry-run: walk candles since entry and fill TP/SL off the bar ranges.
 // If a bar touches both, assume the stop filled first (conservative).
-function reconcileSim({ state, name, sleeve, market, record, candlesByMarket, now }) {
+function reconcileSim({ state, name, sleeve, market, record, candlesByMarket, now, econ }) {
   if (record.status !== 'open') return
   const candles = candlesByMarket[market] || []
   const since = new Date(record.openedAt).getTime()
@@ -96,11 +96,11 @@ function reconcileSim({ state, name, sleeve, market, record, candlesByMarket, no
     const slHit = dir === 1 ? bar.l <= record.slPrice : bar.h >= record.slPrice
     const tpHit = dir === 1 ? bar.h >= record.tpPrice : bar.l <= record.tpPrice
     if (slHit) {
-      realize({ state, sleeveName: name, market, record, exitPrice: record.slPrice, action: 'sl', dry: true })
+      realize({ state, sleeveName: name, market, record, exitPrice: record.slPrice, action: 'sl', dry: true, econ })
       return
     }
     if (tpHit) {
-      realize({ state, sleeveName: name, market, record, exitPrice: record.tpPrice, action: 'tp', dry: true })
+      realize({ state, sleeveName: name, market, record, exitPrice: record.tpPrice, action: 'tp', dry: true, econ })
       return
     }
   }
@@ -122,17 +122,27 @@ function attributeExit({ record, price }) {
   return { action: 'closed-unattributed', price: price ?? record.entryPrice }
 }
 
-function realize({ state, sleeveName, market, record, exitPrice, action, dry }) {
+// `econ` lets the backtest price fills and capture rows without touching the
+// store or the wall clock. Live callers pass nothing and behaviour is
+// unchanged -- note flatCostUsd defaults to 0, so the CELO execution fee stays
+// OUT of the live equity ledger. Changing that would silently restate the
+// meaning of every equity figure already committed.
+function realize({ state, sleeveName, market, record, exitPrice, action, dry, econ = {} }) {
+  const {
+    feeRate = config.risk.roundTripFeeRate,
+    flatCostUsd = 0,
+    sink = { trade: store.appendTrade, note: summary },
+  } = econ
   const sleeve = state.sleeves[sleeveName]
   const dir = record.isLong ? 1 : -1
   const gross = record.notionalUsd * ((exitPrice - record.entryPrice) / record.entryPrice) * dir
-  const fees = record.notionalUsd * config.risk.roundTripFeeRate
+  const fees = record.notionalUsd * feeRate + flatCostUsd
   const pnl = round2(gross - fees)
   sleeve.equity = round2(sleeve.equity + pnl)
   sleeve.highWaterMark = Math.max(sleeve.highWaterMark, sleeve.equity)
   delete sleeve.positions[market]
 
-  store.appendTrade({
+  sink.trade({
     sleeve: sleeveName,
     market,
     side: record.isLong ? 'long' : 'short',
@@ -144,7 +154,7 @@ function realize({ state, sleeveName, market, record, exitPrice, action, dry }) 
     equityAfter: sleeve.equity,
     dry,
   })
-  summary(
+  sink.note(
     `${pnl >= 0 ? '🟢' : '🔴'} ${sleeveName}/${market} ${record.isLong ? 'long' : 'short'} ${action}: ` +
       `entry ${record.entryPrice} → exit ${round2(exitPrice)}, PnL ${pnl >= 0 ? '+' : ''}${pnl} USD, equity ${sleeve.equity}`,
   )
