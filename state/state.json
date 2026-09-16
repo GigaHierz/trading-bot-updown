@@ -1,29 +1,13 @@
 {
   "version": 1,
-  "lastRunAt": "2026-09-16T21:48:09.937Z",
+  "lastRunAt": "2026-09-16T23:55:23.660Z",
   "sleeves": {
     "A": {
-      "equity": 9.64,
+      "equity": 9.25,
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {
-        "CELO": {
-          "status": "open",
-          "isLong": false,
-          "notionalUsd": 14.46,
-          "collateralUsd": 4.811318,
-          "entryPrice": 0.07581,
-          "tpPrice": 0.0712614,
-          "slPrice": 0.07770525,
-          "openedAt": "2026-09-16T15:03:31.826Z",
-          "openOrderKey": null,
-          "tpOrderKey": "0x92b0098b08a576c402f53c1c939a76575b72af9bdbfc4b18306675ddfbdcdee6",
-          "hasTpOnChain": true,
-          "slOrderKey": "0x57f1cc3ebc28628a4701b61c36e372f33bd2b231fbe49f91a5438cc20043a568",
-          "hasSlOnChain": true
-        }
-      },
+      "positions": {},
       "tradesToday": {
         "date": "2026-09-16",
         "count": 1
