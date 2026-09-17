@@ -2,11 +2,14 @@
 // reports/weekly/ and posts it to the tracking issue.
 //
 // health-report.js answers "is the bot alive". perf-report.js answers "what
-// did it earn". This answers "should anything change", and it is built to
-// resist the failure mode that matters: talking yourself into a parameter
-// change on a week's worth of noise. Every figure carries its sample size, the
-// decision block refuses to recommend a change below a minimum trade count,
-// and nothing here writes to config.
+// did it earn". This answers "what happened and what did the loop decide".
+//
+// This file itself is read-only; the config changes are made by
+// tools/auto-tune.js, which the same workflow runs, and whose report is
+// appended below this one. The split is deliberate: decisions are made against
+// out-of-sample BACKTEST evidence, never against the live week, because a week
+// is about two trades. Everything here carries its sample size for that
+// reason.
 //
 // Usage: node tools/weekly-review.js [--days 7] [--celo-usd 0.08] [--no-uptime]
 
@@ -16,6 +19,7 @@ const { execFileSync } = require('child_process')
 const config = require('../src/config')
 const a = require('../src/analytics')
 const { gasBurn } = require('../src/state/store')
+const tuningStore = require('../src/tuning')
 
 function arg(name, fallback = null) {
   const i = process.argv.indexOf(`--${name}`)
@@ -189,18 +193,32 @@ function main() {
   const verdict = []
   let call = 'CONTINUE'
 
+  const tune = tuningStore.load()
+  if (tune.tradingEnabled === false) {
+    call = 'HALT'
+    verdict.push(
+      `Entries are **switched off** by auto-tune (generation ${tune.generation}` +
+        `${tune.appliedAt ? `, ${tune.appliedAt.slice(0, 10)}` : ''}). Nothing in the search space ` +
+        'was profitable after costs. Exits and protection still run.',
+    )
+  } else if (tune.generation > 0) {
+    const ev = tune.evidence || {}
+    verdict.push(
+      `Running auto-tuned generation ${tune.generation}` +
+        (ev.oosBps ? ` (promoted on ${ev.oosBps} bps/trade out-of-sample, n=${ev.oosTrades})` : '') +
+        '.',
+    )
+  }
+
   if (state && Object.values(state.sleeves || {}).some((s) => s.halted)) {
     call = 'HALT'
     verdict.push('A sleeve has hit its drawdown floor and stopped. That is a decision point, not a glitch.')
   }
   if (t.trades < MIN_TRADES_TO_RECOMMEND) {
     verdict.push(
-      `Only ${t.trades} closed trades since inception (need ${MIN_TRADES_TO_RECOMMEND} before a ` +
-        'parameter change is worth making). **No tuning recommended from live data this week.**',
-    )
-    verdict.push(
-      'Run `node tools/backtest.js --sweep ...` for evidence at a usable sample size; ' +
-        'the live log is too small to rank anything.',
+      `Only ${t.trades} closed trades live since inception (need ${MIN_TRADES_TO_RECOMMEND} ` +
+        'before the live log can say anything). Tuning decisions come from the ' +
+        'out-of-sample backtest below, not from this number.',
     )
   } else if (all.tStat !== null && all.tStat < -2) {
     call = 'HALT'
@@ -227,8 +245,10 @@ function main() {
   verdict.forEach((v) => out.push(`- ${v}`))
   out.push('')
   out.push(
-    '_This review never edits config. Any parameter change is a human decision, ' +
-      'made against backtest evidence, not against a week of live noise._',
+    '_Config changes are decided by the auto-tune report below, against ' +
+      'out-of-sample backtest evidence — never against this live week, which is ' +
+      'far too small a sample to rank anything. Risk gates, the CELO reserve and ' +
+      'the drawdown halt are not tunable._',
   )
 
   console.log(out.join('\n'))

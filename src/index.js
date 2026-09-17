@@ -95,6 +95,18 @@ async function main() {
         })
       }
     }
+  } else if (config.tuning && config.tuning.tradingEnabled === false) {
+    // The auto-tune loop switched entries off because nothing in its search
+    // space cleared the cost floor. Exits and protection still run: a disabled
+    // bot must still be able to close what it already holds.
+    summary(
+      `⏸️ entries disabled by auto-tune (generation ${config.tuning.generation}) — ` +
+        'no candidate config was profitable after costs; run tools/auto-tune.js to re-evaluate',
+    )
+    intents.push(
+      ...sleeveA.tick({ candlesByMarket, sleeve: state.sleeves.A, now }).filter((i) => i.kind !== 'open'),
+      ...sleeveB.tick({ candlesByMarket, sleeve: state.sleeves.B, now }).filter((i) => i.kind !== 'open'),
+    )
   } else {
     intents.push(
       ...sleeveA.tick({ candlesByMarket, sleeve: state.sleeves.A, now }),

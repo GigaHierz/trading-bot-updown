@@ -9,7 +9,9 @@ const EXIT_RESERVE_ORDERS = 3 // worst case later: re-arm TP, re-arm SL, close
 // Binary floats make these read as 8.599999999999998 in alerts; keep 1dp.
 const celo = (n) => Math.round(n * 10) / 10
 
-module.exports = {
+const tuning = require('./tuning')
+
+const base = {
   // Market allowlist per sleeve. Disjoint on purpose: on-chain positions are
   // attributed to a sleeve purely by market, so the sets must never overlap.
   // The Mento FX markets (EURm/JPYm/...) are excluded entirely — order-book
@@ -96,4 +98,16 @@ module.exports = {
     // Estimated protocol open+close fee, subtracted from simulated/estimated PnL.
     roundTripFeeRate: 0.002,
   },
+}
+
+// The weekly auto-tune loop writes state/tuning.json; overrides are merged here
+// so every consumer sees one config. Unknown or out-of-bounds keys are dropped
+// by src/tuning.js, and `risk` is deliberately NOT tunable -- the loop may
+// change how the bot trades, never the gates that stop it losing more than it
+// should.
+const activeTuning = tuning.load()
+module.exports = {
+  ...base,
+  sleeves: tuning.apply(base.sleeves, activeTuning),
+  tuning: activeTuning,
 }

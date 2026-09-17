@@ -57,6 +57,7 @@ jobs:
           git config user.name "updown-bot"
           git config user.email "updown-bot@users.noreply.github.com"
           git add state/state.json state/trades.ndjson
+          [ -f state/tuning.json ] && git add state/tuning.json
           if git commit -m "state: $(date -u +%FT%TZ) [skip ci]"; then
             git pull --rebase && git push || (git pull --rebase && git push)
           fi
