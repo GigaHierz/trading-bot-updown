@@ -6,14 +6,16 @@ const { entriesToday } = require('../state/store')
 // Momentum breakout on 1h bars. Long: EMA(fast) > EMA(slow) AND the last
 // closed bar breaks the prior Donchian high. Short is the mirror.
 // Emits at most one open intent per run.
-function tick({ candlesByMarket, sleeve, now }) {
-  const cfg = config.sleeves.A
+//
+// cfg/markets are injectable so the backtest can sweep parameters without
+// mutating the shared config module; the live caller passes neither.
+function tick({ candlesByMarket, sleeve, now, cfg = config.sleeves.A, markets = config.sleeveMarkets.A }) {
   const intents = []
 
   const openMarkets = Object.keys(sleeve.positions)
   if (sleeve.halted) return intents
 
-  for (const market of config.sleeveMarkets.A) {
+  for (const market of markets) {
     const position = sleeve.positions[market]
 
     if (position) {

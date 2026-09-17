@@ -5,7 +5,7 @@ const store = require('./state/store')
 const { getCandles } = require('./data/candles')
 const sleeveA = require('./strategy/sleeveA')
 const sleeveB = require('./strategy/sleeveB')
-const { filterIntents, applyDrawdownHalt } = require('./risk')
+const { filterIntents, applyDrawdownHalt, gasGuard } = require('./risk')
 const { createSimulator } = require('./exchange/simulator')
 const { reconcile, realize } = require('./exchange/reconcile')
 const { log, summary, flushSummary } = require('./log')
@@ -56,6 +56,13 @@ async function main() {
     )
   }
 
+  store.recordGasSample(state, {
+    celoBalance: snap.celoBalance,
+    hasExposure: snap.positions.length > 0 || snap.orders.length > 0,
+    maxRefundCelo:
+      config.risk.keeperFeeCelo * (config.risk.entryOrders + config.risk.exitReserveOrders),
+  })
+
   await reconcile({ state, snap, candlesByMarket, adapter, now: Date.now() })
 
   if (applyDrawdownHalt(state)) {
@@ -64,14 +71,52 @@ async function main() {
     )
   }
 
+  // Checked after reconcile, so it sees the positions we actually hold.
+  const gas = gasGuard({ snapshot: snap, state })
+  if (gas.reason) {
+    summary(`${gas.level === 'critical' ? '🚨' : '⛽'} ${gas.reason}`)
+  }
+
   const now = new Date()
-  const intents = [
-    ...sleeveA.tick({ candlesByMarket, sleeve: state.sleeves.A, now }),
-    ...sleeveB.tick({ candlesByMarket, sleeve: state.sleeves.B, now }),
-  ]
+  const intents = []
+
+  if (gas.flatten) {
+    // Emergency: close everything while the execution fee is still affordable,
+    // and take no new signals this run. Closes are pushed first so the tx
+    // budget cannot be spent on anything else.
+    for (const [name, sleeve] of Object.entries(state.sleeves)) {
+      for (const [market, record] of Object.entries(sleeve.positions)) {
+        if (record.status !== 'open') continue
+        intents.push({
+          kind: 'close',
+          sleeve: name,
+          market,
+          reason: 'gas-guard flatten (CELO exhausted)',
+        })
+      }
+    }
+  } else if (config.tuning && config.tuning.tradingEnabled === false) {
+    // The auto-tune loop switched entries off because nothing in its search
+    // space cleared the cost floor. Exits and protection still run: a disabled
+    // bot must still be able to close what it already holds.
+    summary(
+      `⏸️ entries disabled by auto-tune (generation ${config.tuning.generation}) — ` +
+        'no candidate config was profitable after costs; run tools/auto-tune.js to re-evaluate',
+    )
+    intents.push(
+      ...sleeveA.tick({ candlesByMarket, sleeve: state.sleeves.A, now }).filter((i) => i.kind !== 'open'),
+      ...sleeveB.tick({ candlesByMarket, sleeve: state.sleeves.B, now }).filter((i) => i.kind !== 'open'),
+    )
+  } else {
+    intents.push(
+      ...sleeveA.tick({ candlesByMarket, sleeve: state.sleeves.A, now }),
+      ...sleeveB.tick({ candlesByMarket, sleeve: state.sleeves.B, now }),
+    )
+  }
 
   // Live positions must always carry on-exchange TP+SL; re-arm missing legs.
-  if (!dry) {
+  // Skipped during a flatten: the remaining gas belongs to the closes.
+  if (!dry && !gas.flatten) {
     for (const [name, sleeve] of Object.entries(state.sleeves)) {
       for (const [market, record] of Object.entries(sleeve.positions)) {
         if (record.status !== 'open') continue

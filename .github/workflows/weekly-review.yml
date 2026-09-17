@@ -1,0 +1,90 @@
+name: weekly-review
+
+on:
+  schedule:
+    - cron: "0 7 * * 1" # 08:00 Europe/Lisbon (WEST), Mondays
+  workflow_dispatch:
+    inputs:
+      days:
+        description: "Review window in days"
+        required: false
+        default: "7"
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: weekly-review
+  cancel-in-progress: false
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: main # always review the state the bot actually commits to
+          # The run cadence is derived from the commit history of
+          # state/state.json, so the full history is required.
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - run: npm ci --ignore-scripts
+
+      - name: Warm the candle cache
+        run: node tools/backtest.js --fetch-only --from 2026-01-01
+
+      # The self-improving half. Searches on train, validates out-of-sample,
+      # and writes state/tuning.json ONLY if the promotion gate passes. It can
+      # also switch entries off when nothing clears the cost floor -- that is
+      # an intended outcome, not a failure.
+      - name: Auto-tune
+        run: node tools/auto-tune.js --apply --offline > tune.md
+
+      - name: Generate review
+        env:
+          # Reads chain state only; never signs. No private key in this job.
+          CELO_WALLET_ADDRESS: ${{ vars.CELO_WALLET_ADDRESS }}
+          CELO_RPC_URL: ${{ secrets.CELO_RPC_URL }}
+          CELO_CHAIN_ID: "42220"
+        run: |
+          DAYS="${{ github.event.inputs.days || '7' }}"
+          node tools/weekly-review.js --days "$DAYS" > review.md
+          cat tune.md >> review.md
+          cat review.md >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Commit the report and any config change
+        run: |
+          WEEK=$(date -u +%G-W%V)
+          mkdir -p reports/weekly
+          cp review.md "reports/weekly/${WEEK}.md"
+          git config user.name "updown-bot"
+          git config user.email "updown-bot@users.noreply.github.com"
+          git add "reports/weekly/${WEEK}.md"
+          [ -f state/tuning.json ] && git add state/tuning.json
+          if git commit -m "weekly review ${WEEK} [skip ci]"; then
+            git pull --rebase && git push || (git pull --rebase && git push)
+          fi
+
+      - name: Post to tracking issue
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          {
+            echo "@GigaHierz — weekly strategy review"
+            echo
+            cat review.md
+          } > comment.md
+          ISSUE=$(gh issue list --label bot-report --state open --limit 1 --json number -q '.[0].number')
+          if [ -z "$ISSUE" ]; then
+            gh label create bot-report --color 1D76DB --force
+            gh issue create --title "UPDOWN bot check-ins" --label bot-report --body-file comment.md
+          else
+            gh issue comment "$ISSUE" --body-file comment.md
+          fi

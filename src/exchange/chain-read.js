@@ -41,6 +41,12 @@ function getProvider() {
 }
 
 function getWalletAddress(provider) {
+  // Every read path here needs only the address. Letting the reporting jobs
+  // pass CELO_WALLET_ADDRESS keeps the signing key out of workflows that never
+  // sign anything -- this repo is public and the key is a repo secret.
+  if (process.env.CELO_WALLET_ADDRESS) {
+    return ethers.utils.getAddress(process.env.CELO_WALLET_ADDRESS)
+  }
   return new ethers.Wallet(process.env.CELO_PRIVATE_KEY, provider).address
 }
 

@@ -6,6 +6,8 @@ const path = require('path')
 
 const config = require('../src/config')
 const { snapshot } = require('../src/exchange/chain-read')
+const { gasGuard } = require('../src/risk')
+const { gasBurn } = require('../src/state/store')
 
 const STATE = path.join(__dirname, '../state/state.json')
 const TRADES = path.join(__dirname, '../state/trades.ndjson')
@@ -17,6 +19,15 @@ const MIN_CELO = config.risk.minCeloForEntry
 async function main() {
   const state = JSON.parse(fs.readFileSync(STATE, 'utf8'))
   const snap = await snapshot(SYMBOLS)
+  const tradeRows = fs.existsSync(TRADES)
+    ? fs.readFileSync(TRADES, 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l))
+    : []
+  const tradeLines = tradeRows.slice(-8).map(
+    (t) =>
+      `  - ${t.ts.slice(0, 16)} ${t.sleeve}/${t.market} ${t.side} ${t.action}` +
+      (t.pnlUsd !== undefined ? ` → ${t.pnlUsd >= 0 ? '+' : ''}${t.pnlUsd} USD` : '') +
+      (t.dry ? ' (dry)' : ''),
+  )
   const alerts = []
   const lines = []
 
@@ -56,19 +67,32 @@ async function main() {
   if (totalEquity < MIN_TOTAL_EQUITY) {
     alerts.push(`combined equity ${totalEquity.toFixed(2)} USD is below ${MIN_TOTAL_EQUITY} (deep drawdown)`)
   }
-  if (snap.celoBalance < MIN_CELO) {
-    alerts.push(`CELO balance ${snap.celoBalance.toFixed(2)} < ${MIN_CELO} — bot cannot open new positions; top up CELO`)
+  // Gas: report runway, not just the floor. Discovering the problem at the
+  // floor is what cost the experiment most of its calendar.
+  const gas = gasGuard({ snapshot: snap, state })
+  const closedTrips = tradeRows.filter((t) => t.pnlUsd !== undefined).length
+  const burn = gasBurn(state, closedTrips)
+  const perTrip = burn.perTripCelo || config.risk.celoPerRoundTrip
+  const tripsLeft = Math.max(0, Math.floor((snap.celoBalance - MIN_CELO) / perTrip))
+  const daysLeft = burn.perDayCelo ? snap.celoBalance / burn.perDayCelo : null
+
+  if (gas.level === 'critical') {
+    alerts.push(`🚨 UNPROTECTED — ${gas.reason}`)
+  } else if (snap.celoBalance < MIN_CELO) {
+    alerts.push(
+      `CELO balance ${snap.celoBalance.toFixed(2)} < ${MIN_CELO} — bot cannot open new positions; top up CELO`,
+    )
+  } else if (tripsLeft < config.risk.minCeloRunwayTrips) {
+    alerts.push(
+      `CELO runway is only ~${tripsLeft} more entries (${snap.celoBalance.toFixed(2)} CELO ` +
+        `at ~${perTrip} per round trip) — top up before it blocks`,
+    )
   }
 
-  let tradeLines = []
-  if (fs.existsSync(TRADES)) {
-    tradeLines = fs.readFileSync(TRADES, 'utf8').trim().split('\n').slice(-8).map((l) => {
-      const t = JSON.parse(l)
-      return `  - ${t.ts.slice(0, 16)} ${t.sleeve}/${t.market} ${t.side} ${t.action}` +
-        (t.pnlUsd !== undefined ? ` → ${t.pnlUsd >= 0 ? '+' : ''}${t.pnlUsd} USD` : '') +
-        (t.dry ? ' (dry)' : '')
-    })
-  }
+  const gasLine =
+    `- **Gas runway**: ~${tripsLeft} more entries at ~${perTrip} CELO/round trip` +
+    (daysLeft !== null ? `, ~${daysLeft.toFixed(1)} days at the observed burn` : '') +
+    (burn.netBurnCelo !== null ? ` (${burn.netBurnCelo} CELO burned over ${closedTrips} trips)` : '')
 
   const verdict = alerts.length
     ? `🚨 **ATTENTION** — ${alerts.join('; ')}`
@@ -81,6 +105,7 @@ async function main() {
     `- **Wallet**: ${snap.celoBalance.toFixed(2)} CELO, ${snap.wusdtBalance.toFixed(2)} wUSDT, ` +
       `${snap.positions.length} on-chain position(s), ${snap.orders.length} resident order(s)`,
   )
+  console.log(gasLine)
   console.log(`- **Last bot run**: ${state.lastRunAt} (${lastRunAgeH.toFixed(1)}h ago)`)
   if (tradeLines.length) {
     console.log('- **Recent trades**:')

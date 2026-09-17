@@ -28,6 +28,77 @@ markets are excluded. Treat the whole wallet as money you can lose.
 Every entry immediately places **on-exchange** TP and SL orders, so positions
 stay protected even if scheduled runs are skipped.
 
+An entry is only allowed when the wallet holds enough CELO to place those
+orders **and** to re-arm and close them later (`minCeloForEntry`, derived in
+`src/config.js`). If a held position ever becomes unprotectable anyway, the
+gas guard closes it while the execution fee is still affordable rather than
+leaving it running without a stop.
+
+### Reviewing it
+
+| Command | Answers |
+|---|---|
+| `node tools/health-report.js` | Is it alive? Liveness, balances, gas runway. Posted twice daily. |
+| `node tools/perf-report.js` | What did it earn? Win rate, expectancy ± std err, cost drag. |
+| `node tools/weekly-review.js` | What happened? Trading + uptime + a CONTINUE/ADJUST/HALT call. Posted Mondays by `weekly-review.yml`, committed to `reports/weekly/`. |
+| `node tools/auto-tune.js` | What should change? Searches, validates out-of-sample, and applies the winner — or stops trading. |
+| `node tools/backtest.js` | Would a change have helped? Offline replay at the real polling cadence. |
+
+### The self-improving loop
+
+Every Monday `weekly-review.yml` runs `tools/auto-tune.js --apply`, which
+searches the parameter space on a training window, validates the top
+candidates **out-of-sample**, and writes `state/tuning.json` — merged into the
+live config by `src/config.js` — but only if the promotion gate passes:
+
+| Gate | Why |
+|---|---|
+| OOS n ≥ 20 | below that the t-statistic means nothing |
+| positive **after full costs** | gross edge here is ~−7bp against ~117bp of round-trip cost |
+| OOS t ≥ +2 | significantly *positive*, not merely significant |
+| ≥ 15bp better than the incumbent | a margin, not a rounding artifact |
+| every cadence seed profitable | not just the lucky poll sequence |
+| train and OOS agree in sign | otherwise it was picked by the half it was tuned on |
+
+Search on train, validate only the top few on OOS, promote at most one. The
+default outcome is **no change** — a search over enough cells always produces
+a winner, and almost all of them are noise.
+
+**"Stop trading" is a legal output.** If nothing beats the incumbent *and* the
+incumbent is significantly losing out-of-sample, the loop sets
+`tradingEnabled: false` on itself. The bot then takes no new entries but still
+exits and protects what it holds. It re-enables only on positive OOS evidence,
+never just because time passed.
+
+What the loop may **never** touch: the CELO reserve, the risk gates, the
+drawdown halt, position minimums. Bounds are in `src/tuning.js`; anything
+outside them is rejected rather than clamped, and a config that violates a
+structural invariant (`tpPct ≤ slPct`, `emaFast ≥ emaSlow`) reverts that sleeve
+entirely. A corrupt `tuning.json` falls back to the hand-written config.
+
+```bash
+node tools/auto-tune.js                  # dry run — search and report only
+node tools/auto-tune.js --apply          # write state/tuning.json
+```
+
+`reports/2026-09-16-strategy-review.md` is the first full review. Its finding:
+the signal has no edge and the cost floor is ~117bp per round trip against a
+gross edge of −7bp. Read it before funding anything further.
+
+### Backtesting
+
+```bash
+node tools/backtest.js --fetch-only --from 2026-03-01   # warm .cache/
+node tools/backtest.js --from 2026-03-01 --to 2026-09-15 --offline
+node tools/backtest.js --offline --seeds 5 \
+  --sweep 'A.slPct=0.025,0.04;A.tpPct=0.03,0.06'
+```
+
+The default output compares the strategy at every-bar polling against the
+cadence GitHub Actions actually delivers (~6.5 runs/day, measured, versus a
+nominal 48). Sweeps rank on basis points of notional per trade, score every
+cell across several cadence seeds, and flag cells whose |t| < 2.
+
 ### Controls (GitHub → Settings → Secrets and variables → Actions)
 
 | Kind | Name | Meaning |
@@ -36,6 +107,7 @@ stay protected even if scheduled runs are skipped.
 | Variable | `DRY_RUN` | Set to `false` to trade with real funds. Unset/other = simulation. |
 | Secret | `CELO_PRIVATE_KEY` | Wallet key. Never logged; the logger masks 64-hex strings. |
 | Secret | `CELO_RPC_URL` | e.g. `https://forno.celo.org` |
+| Variable | `CELO_WALLET_ADDRESS` | Wallet address. Lets the reporting workflows read chain state without the signing key. |
 
 ## Funding the wallet
 
