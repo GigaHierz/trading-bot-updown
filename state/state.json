@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-09-18T21:59:00.839Z",
+  "lastRunAt": "2026-09-18T23:49:13.067Z",
   "sleeves": {
     "A": {
       "equity": 9.25,
@@ -69,8 +69,8 @@
   "gas": {
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
-    "lastBalance": 191.13073559578694,
-    "lastSampleAt": "2026-09-18T21:58:20.451Z",
+    "lastBalance": 187.14664321228693,
+    "lastSampleAt": "2026-09-18T23:49:13.066Z",
     "hadExposure": true,
     "topUpsCelo": 150
   }
