@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-09-18T19:46:17.544Z",
+  "lastRunAt": "2026-09-18T21:59:00.839Z",
   "sleeves": {
     "A": {
       "equity": 9.25,
@@ -22,15 +22,30 @@
           "hasTpOnChain": true,
           "slOrderKey": "0x9648e2b7323844c32475d8df20dd9a886cbbe13b7e7b8168b6f47726cd3ec452",
           "hasSlOnChain": true
+        },
+        "CELO": {
+          "status": "open",
+          "isLong": true,
+          "notionalUsd": 13.88,
+          "collateralUsd": 4.62167,
+          "entryPrice": 0.08418133,
+          "tpPrice": 0.08923221,
+          "slPrice": 0.082076797,
+          "openedAt": "2026-09-18T21:58:28.958Z",
+          "openOrderKey": null,
+          "tpOrderKey": "0x21e0ae799eee472c274052c4ce2b59f9d546cab34835743772e0dd896b23134a",
+          "hasTpOnChain": true,
+          "slOrderKey": "0x6f3a6a3c42d484ceec30f2c957a218f49e675180e2172a17647438a03a26f9f5",
+          "hasSlOnChain": true
         }
       },
       "tradesToday": {
         "date": "2026-09-18",
-        "count": 1
+        "count": 2
       },
       "lastSignalBar": {
         "ETH": 1789718400000,
-        "CELO": 1789567200000
+        "CELO": 1789761600000
       }
     },
     "B": {
@@ -55,7 +70,7 @@
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
     "lastBalance": 191.13073559578694,
-    "lastSampleAt": "2026-09-18T19:46:17.543Z",
+    "lastSampleAt": "2026-09-18T21:58:20.451Z",
     "hadExposure": true,
     "topUpsCelo": 150
   }
