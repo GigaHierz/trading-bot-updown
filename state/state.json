@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-09-19T01:46:38.799Z",
+  "lastRunAt": "2026-09-19T06:44:14.478Z",
   "sleeves": {
     "A": {
       "equity": 9.25,
@@ -70,7 +70,7 @@
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
     "lastBalance": 187.14664321228693,
-    "lastSampleAt": "2026-09-19T01:46:38.798Z",
+    "lastSampleAt": "2026-09-19T06:44:14.477Z",
     "hadExposure": true,
     "topUpsCelo": 150
   }
