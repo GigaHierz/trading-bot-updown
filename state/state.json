@@ -1,29 +1,13 @@
 {
   "version": 1,
-  "lastRunAt": "2026-09-19T23:41:05.569Z",
+  "lastRunAt": "2026-09-20T01:48:56.260Z",
   "sleeves": {
     "A": {
-      "equity": 10.78,
+      "equity": 10.34,
       "initialEquity": 10.45,
       "highWaterMark": 10.78,
       "halted": false,
-      "positions": {
-        "CELO": {
-          "status": "open",
-          "isLong": true,
-          "notionalUsd": 16.17,
-          "collateralUsd": 5.380295,
-          "entryPrice": 0.09144872,
-          "tpPrice": 0.096935643,
-          "slPrice": 0.089162502,
-          "openedAt": "2026-09-19T14:52:51.195Z",
-          "openOrderKey": null,
-          "tpOrderKey": null,
-          "hasTpOnChain": true,
-          "slOrderKey": "0xdbc55b6a6686c3cafa34100e166755d09d18dd73c62e24706584d4115fd43a92",
-          "hasSlOnChain": true
-        }
-      },
+      "positions": {},
       "tradesToday": {
         "date": "2026-09-19",
         "count": 1
@@ -70,8 +54,8 @@
   "gas": {
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
-    "lastBalance": 182.73135969678694,
-    "lastSampleAt": "2026-09-19T23:41:05.568Z",
+    "lastBalance": 184.56939386078693,
+    "lastSampleAt": "2026-09-20T01:48:56.258Z",
     "hadExposure": true,
     "topUpsCelo": 150
   }
