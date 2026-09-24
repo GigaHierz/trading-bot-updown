@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-09-24T05:33:09.129Z",
+  "lastRunAt": "2026-09-24T10:38:38.428Z",
   "sleeves": {
     "A": {
       "equity": 10.65,
@@ -22,45 +22,40 @@
           "hasTpOnChain": true,
           "slOrderKey": "0xb7bfcbbaee9623e61123d12b88c0845c276a2a6555dada243a1e77b5d2653d4c",
           "hasSlOnChain": true
+        },
+        "CELO": {
+          "status": "pending_open",
+          "isLong": false,
+          "notionalUsd": 15.98,
+          "collateralUsd": 5.33,
+          "entryPrice": 0.08843,
+          "tpPrice": 0.0831242,
+          "slPrice": 0.09064075,
+          "openedAt": "2026-09-24T10:34:21.510Z",
+          "openOrderKey": null
         }
       },
       "tradesToday": {
-        "date": "2026-09-23",
+        "date": "2026-09-24",
         "count": 1
       },
       "lastSignalBar": {
         "ETH": 1790172000000,
-        "CELO": 1789822800000
+        "CELO": 1790240400000
       }
     },
     "B": {
-      "equity": 8.94,
+      "equity": 8.74,
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {
-        "BTC": {
-          "status": "open",
-          "isLong": true,
-          "notionalUsd": 12,
-          "collateralUsd": 7.992799,
-          "entryPrice": 84249.38811874,
-          "tpPrice": 86776.87,
-          "slPrice": 82985.647,
-          "openedAt": "2026-09-23T19:07:23.842Z",
-          "openOrderKey": null,
-          "tpOrderKey": "0x12328b7682af61d2814b4f14f527b8d9cbba850af244732a2680c51106972450",
-          "hasTpOnChain": true,
-          "slOrderKey": "0x1c7441a4c03cb6033ad1fb31061b165ade16ce0a541271afc4b295f3014e4bfe",
-          "hasSlOnChain": true
-        }
-      },
+      "positions": {},
       "tradesToday": {
         "date": "2026-09-23",
         "count": 1
       },
       "lastSignalBar": {
-        "BTC": 1790164800000
+        "BTC": 1790222400000
       }
     }
   },
@@ -70,8 +65,8 @@
   "gas": {
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
-    "lastBalance": 173.2912802931518,
-    "lastSampleAt": "2026-09-24T05:33:09.128Z",
+    "lastBalance": 175.0623745451518,
+    "lastSampleAt": "2026-09-24T10:34:07.274Z",
     "hadExposure": true,
     "topUpsCelo": 150
   }
