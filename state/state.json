@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-10-07T16:42:11.892Z",
+  "lastRunAt": "2026-10-07T21:39:33.528Z",
   "sleeves": {
     "A": {
       "equity": 10.22,
@@ -34,28 +34,11 @@
       }
     },
     "B": {
-      "equity": 8.67,
+      "equity": 8.58,
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {
-        "BTC": {
-          "status": "closing",
-          "isLong": true,
-          "notionalUsd": 11.7,
-          "collateralUsd": 7.792978,
-          "entryPrice": 83782.12132445,
-          "tpPrice": 86295.585,
-          "slPrice": 82525.39,
-          "openedAt": "2026-10-07T09:29:46.597Z",
-          "openOrderKey": null,
-          "tpOrderKey": "0x72ee3ea24f8b0ce27f925abe7e8849019d8cb48d4ba65046bfa21d0640794fbc",
-          "hasTpOnChain": true,
-          "slOrderKey": "0x9be26d13a492a4e9c6bc439b5362a949ba0cef08a07890fa1c0c75018186db6f",
-          "hasSlOnChain": true,
-          "closeReason": "trend filter flat (spread 0.37%)"
-        }
-      },
+      "positions": {},
       "tradesToday": {
         "date": "2026-10-07",
         "count": 1
@@ -71,8 +54,8 @@
   "gas": {
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
-    "lastBalance": 147.55945469598993,
-    "lastSampleAt": "2026-10-07T16:41:43.030Z",
+    "lastBalance": 148.84789559498992,
+    "lastSampleAt": "2026-10-07T21:39:33.526Z",
     "hadExposure": true,
     "topUpsCelo": 150
   }
