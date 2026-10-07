@@ -1,19 +1,35 @@
 {
   "version": 1,
-  "lastRunAt": "2026-10-06T23:55:00.134Z",
+  "lastRunAt": "2026-10-07T02:50:42.646Z",
   "sleeves": {
     "A": {
       "equity": 10.22,
       "initialEquity": 10.45,
       "highWaterMark": 10.78,
       "halted": false,
-      "positions": {},
+      "positions": {
+        "ETH": {
+          "status": "open",
+          "isLong": false,
+          "notionalUsd": 15.33,
+          "collateralUsd": 5.103867,
+          "entryPrice": 2613.66023646,
+          "tpPrice": 2456.8406,
+          "slPrice": 2679.0017,
+          "openedAt": "2026-10-07T02:49:57.574Z",
+          "openOrderKey": null,
+          "tpOrderKey": "0xd10b6da25ce549e6d5a638789a8b2514e3764f8c10dd8431adba16d9cef7c386",
+          "hasTpOnChain": true,
+          "slOrderKey": "0x94c6d3bc98324253417b081b0ce61b2391d50ccb65cf95811438db6e3a43a76d",
+          "hasSlOnChain": true
+        }
+      },
       "tradesToday": {
-        "date": "2026-10-06",
+        "date": "2026-10-07",
         "count": 1
       },
       "lastSignalBar": {
-        "ETH": 1790964000000,
+        "ETH": 1791334800000,
         "CELO": 1791313200000
       }
     },
@@ -24,7 +40,7 @@
       "halted": false,
       "positions": {
         "BTC": {
-          "status": "open",
+          "status": "closing",
           "isLong": true,
           "notionalUsd": 11.89,
           "collateralUsd": 7.922865,
@@ -36,7 +52,8 @@
           "tpOrderKey": "0x0a6ec9b66f38917f5e554043bf7156ba6d073c531b4833be31e91f25e1672a38",
           "hasTpOnChain": true,
           "slOrderKey": "0x123a3f9a4c94a7c60a63ed326456e1f1235c71f79b6eb0c800b663abf8eca52a",
-          "hasSlOnChain": true
+          "hasSlOnChain": true,
+          "closeReason": "time-stop after 96h"
         }
       },
       "tradesToday": {
@@ -55,7 +72,7 @@
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
     "lastBalance": 155.1663211666518,
-    "lastSampleAt": "2026-10-06T23:55:00.132Z",
+    "lastSampleAt": "2026-10-07T02:49:27.196Z",
     "hadExposure": true,
     "topUpsCelo": 150
   }
