@@ -1,29 +1,13 @@
 {
   "version": 1,
-  "lastRunAt": "2026-10-08T14:59:04.356Z",
+  "lastRunAt": "2026-10-08T20:31:12.747Z",
   "sleeves": {
     "A": {
-      "equity": 10.22,
+      "equity": 11.11,
       "initialEquity": 10.45,
-      "highWaterMark": 10.78,
+      "highWaterMark": 11.11,
       "halted": false,
-      "positions": {
-        "ETH": {
-          "status": "open",
-          "isLong": false,
-          "notionalUsd": 15.33,
-          "collateralUsd": 5.103867,
-          "entryPrice": 2613.66023646,
-          "tpPrice": 2456.8406,
-          "slPrice": 2679.0017,
-          "openedAt": "2026-10-07T02:49:57.574Z",
-          "openOrderKey": null,
-          "tpOrderKey": "0xd10b6da25ce549e6d5a638789a8b2514e3764f8c10dd8431adba16d9cef7c386",
-          "hasTpOnChain": true,
-          "slOrderKey": "0x94c6d3bc98324253417b081b0ce61b2391d50ccb65cf95811438db6e3a43a76d",
-          "hasSlOnChain": true
-        }
-      },
+      "positions": {},
       "tradesToday": {
         "date": "2026-10-07",
         "count": 2
@@ -38,13 +22,29 @@
       "initialEquity": 10.45,
       "highWaterMark": 10.45,
       "halted": false,
-      "positions": {},
+      "positions": {
+        "BTC": {
+          "status": "open",
+          "isLong": false,
+          "notionalUsd": 11.58,
+          "collateralUsd": 7.715365,
+          "entryPrice": 81719.09,
+          "tpPrice": 79267.517,
+          "slPrice": 82944.876,
+          "openedAt": "2026-10-08T20:28:35.682Z",
+          "openOrderKey": null,
+          "tpOrderKey": "0xd40f8ffd72dfc2a81c4c509ab9d8265baf829587b83f62d9d3a4b59b5b789af4",
+          "hasTpOnChain": true,
+          "slOrderKey": "0x322e2d5cfcd617fd906e595ea33aff3c302ba47342026967d8c02ee0d84fa31e",
+          "hasSlOnChain": true
+        }
+      },
       "tradesToday": {
-        "date": "2026-10-07",
+        "date": "2026-10-08",
         "count": 1
       },
       "lastSignalBar": {
-        "BTC": 1791345600000
+        "BTC": 1791475200000
       }
     }
   },
@@ -54,9 +54,9 @@
   "gas": {
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
-    "lastBalance": 148.84789559498992,
-    "lastSampleAt": "2026-10-08T14:59:04.355Z",
-    "hadExposure": true,
+    "lastBalance": 150.5953804949899,
+    "lastSampleAt": "2026-10-08T20:28:27.903Z",
+    "hadExposure": false,
     "topUpsCelo": 150
   }
 }
