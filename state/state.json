@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "lastRunAt": "2026-10-14T15:20:01.037Z",
+  "lastRunAt": "2026-10-14T19:35:24.147Z",
   "sleeves": {
     "A": {
       "equity": 11.11,
@@ -8,25 +8,25 @@
       "highWaterMark": 11.11,
       "halted": false,
       "positions": {
-        "ETH": {
+        "CELO": {
           "status": "pending_open",
           "isLong": false,
           "notionalUsd": 16.67,
           "collateralUsd": 5.56,
-          "entryPrice": 2434.37,
-          "tpPrice": 2288.3078,
-          "slPrice": 2495.2292,
-          "openedAt": "2026-10-14T15:15:43.027Z",
+          "entryPrice": 0.08719,
+          "tpPrice": 0.0819586,
+          "slPrice": 0.08936975,
+          "openedAt": "2026-10-14T19:31:07.749Z",
           "openOrderKey": null
         }
       },
       "tradesToday": {
         "date": "2026-10-14",
-        "count": 1
+        "count": 2
       },
       "lastSignalBar": {
         "ETH": 1791986400000,
-        "CELO": 1791360000000
+        "CELO": 1792000800000
       }
     },
     "B": {
@@ -50,9 +50,9 @@
   "gas": {
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
-    "lastBalance": 142.3338551050798,
-    "lastSampleAt": "2026-10-14T15:15:08.100Z",
-    "hadExposure": false,
+    "lastBalance": 140.7658524650798,
+    "lastSampleAt": "2026-10-14T19:30:25.118Z",
+    "hadExposure": true,
     "topUpsCelo": 150
   }
 }
