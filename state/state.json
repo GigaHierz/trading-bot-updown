@@ -1,19 +1,31 @@
 {
   "version": 1,
-  "lastRunAt": "2026-10-24T12:06:43.520Z",
+  "lastRunAt": "2026-10-24T16:11:12.016Z",
   "sleeves": {
     "A": {
       "equity": 11.11,
       "initialEquity": 10.45,
       "highWaterMark": 11.11,
       "halted": false,
-      "positions": {},
+      "positions": {
+        "ETH": {
+          "status": "pending_open",
+          "isLong": false,
+          "notionalUsd": 16.67,
+          "collateralUsd": 5.56,
+          "entryPrice": 2306.73,
+          "tpPrice": 2168.3262,
+          "slPrice": 2364.3982,
+          "openedAt": "2026-10-24T16:07:03.109Z",
+          "openOrderKey": null
+        }
+      },
       "tradesToday": {
-        "date": "2026-10-23",
+        "date": "2026-10-24",
         "count": 1
       },
       "lastSignalBar": {
-        "ETH": 1792792800000,
+        "ETH": 1792854000000,
         "CELO": 1792645200000
       }
     },
@@ -39,7 +51,7 @@
     "firstBalance": 47.94446514828693,
     "firstSampleAt": "2026-09-17T12:15:20.538Z",
     "lastBalance": 137.0145897160295,
-    "lastSampleAt": "2026-10-24T12:06:43.519Z",
+    "lastSampleAt": "2026-10-24T16:06:12.837Z",
     "hadExposure": false,
     "topUpsCelo": 150
   }
