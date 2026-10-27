@@ -143,9 +143,15 @@ async function phaseSweep(p, wallet, to) {
   for (const t of b.tokens) {
     if (t.raw.isZero()) continue
     const c = new ethers.Contract(t.address, ERC20_ABI, wallet)
-    const tx = await c.transfer(to, t.raw)
-    await tx.wait()
-    console.log(`sent ${t.human} ${t.symbol} -> ${to}: ${tx.hash}`)
+    try {
+      const tx = await c.transfer(to, t.raw)
+      await tx.wait()
+      console.log(`sent ${t.human} ${t.symbol} -> ${to}: ${tx.hash}`)
+    } catch (err) {
+      // Some airdropped tokens are transfer-restricted; leave them and move on.
+      const reason = String(err.reason || err.code || err.message).split('\n')[0]
+      console.log(`skipped ${t.human} ${t.symbol}: transfer reverted (${reason})`)
+    }
   }
 
   // 3. Native CELO minus a small reserve for the transfer itself.
