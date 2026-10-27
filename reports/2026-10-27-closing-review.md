@@ -115,4 +115,24 @@ Worth keeping, independent of this signal:
 
 ## 6. Withdrawal transactions
 
-Filled in at close-out; see the `closeout` workflow run summaries.
+All on Celo mainnet, 2026-10-27, from the bot wallet
+`0x0d4C6b41047606d6992F5ca1d97BA19fFb3Ad70e` to the funding wallet
+`0x1724707c52de2fa65ad9c586b5d38507f52D3c06`.
+
+| step | amount | tx |
+|---|---:|---|
+| Bridgers approve (wUSDT) | | `0x6dbda6f9c3e82edce8a7d0da5fba60ced8be4928d9a1dabcf9d4c3f054a80af0` |
+| Bridgers swap wUSDT → native USDT | 15.549659 → 15.448104 | `0xc5d05a59c598e05638dcd9841511a900aae7d9955f5d2b2bea194e137e0be994` |
+| Revoke Router allowance | | `0x855172fdc3b11336100a607e82a28cba728495f60992164fbc390e871ba3f885` |
+| USDT | 15.98321 | `0x2e2829ed651177775901fc45f1637f77d46601578821486d27e7d6c3312ada73` |
+| wARS | 1,026 | `0xe81bb0d2fcf7fd4e141508ebead71b5cf2e5fa4469a415372cc66aa7cdd1f2e9` |
+| wBRL | 5.01 | `0x5086bd1cb028e4e4f8e324b1d74a6c43ee06d0c80487b4cb7b35f70e1f4cb4a8` |
+| cUSD | 0.1 | `0xc1b0d22c2ab65c595ca2fbe1ca3a1d9c00aa568d69e3395f99bbed29bb465535` |
+| USDC | 0.02 | `0x1ab490dcc34574abfb507861de00fb2b94e307ad6e7a9d4d76bb92c39b421e7f` |
+| wCELO (platform wrapper, no redemption) | 9.677 | `0xf320596bd6f35c88c663b4c74022f8d988499e162991c648b90b8094616b721b` |
+| wETH dust | 0.00052 | `0x3294e2c590262f11ac9b14d2e16137b171b44311fd183666a4cdad5ae54526b9` |
+| wBTC dust | 0.0000185 | `0x36781ed6d27d57845c1f4677f77c2df113afd975e89a1a8b989e24323682df4e` |
+| CELO | 134.994 | `0x34f25147343626606a9becdf5d4d6ba9c2cf0144aaf44e8004bb34b1aa4d3cb2` |
+
+Left behind on purpose: ~0.5 CELO gas reserve and 10 SLICE (an airdropped
+token whose transfers are role-restricted and revert).
