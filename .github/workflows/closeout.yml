@@ -1,0 +1,52 @@
+name: closeout
+
+# One-shot wind-down of the experiment. Run "dry" first, then "swap", then
+# "sweep". Each phase prints balances before and after.
+on:
+  workflow_dispatch:
+    inputs:
+      phase:
+        description: "dry | swap | sweep"
+        type: choice
+        options: [dry, swap, sweep]
+        default: dry
+      destination:
+        description: "Address that receives everything in the sweep phase"
+        type: string
+        default: "0x1724707c52de2fa65ad9c586b5d38507f52D3c06"
+
+concurrency:
+  group: trading-bot
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  closeout:
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.ref_name }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      # This job holds the signing key and the repo is public: never run
+      # lockfile lifecycle scripts in the same process as the key.
+      - run: npm ci --ignore-scripts
+
+      - name: Closeout
+        env:
+          CELO_PRIVATE_KEY: ${{ secrets.CELO_PRIVATE_KEY }}
+          CELO_RPC_URL: ${{ secrets.CELO_RPC_URL }}
+          CELO_CHAIN_ID: "42220"
+        run: node tools/closeout.js --phase "${{ inputs.phase }}" --to "${{ inputs.destination }}" | tee closeout.md
+
+      - name: Summary
+        if: always()
+        run: cat closeout.md >> "$GITHUB_STEP_SUMMARY"
