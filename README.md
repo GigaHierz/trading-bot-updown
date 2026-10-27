@@ -1,5 +1,10 @@
 # UPDOWN two-sleeve trading bot (Celo)
 
+> **Experiment closed 2026-10-27.** Funds withdrawn, trading allowance revoked,
+> workflows disabled, repository archived. Final numbers and lessons are in
+> [`reports/2026-10-27-closing-review.md`](reports/2026-10-27-closing-review.md).
+> Everything below is kept as documentation of how it ran.
+
 Automated perp trading on [UPDOWN](https://github.com/UpDownDex/skills) — a
 GMX-v2-style perpetual futures DEX on Celo — driven by a GitHub Actions
 schedule. One wallet, two independent $10 strategy sleeves:

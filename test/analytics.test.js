@@ -185,8 +185,8 @@ test('cost drag is empty rather than NaN with no trades', () => {
 })
 
 // --- golden test against the committed live log -------------------------
-// Pins the numbers the strategy review was written from, so a future change to
-// the pairing rules cannot silently restate history.
+// Pins the final numbers of the experiment (closed 2026-10-27, log frozen), so
+// a future change to the pairing rules cannot silently restate history.
 
 test('analyze reproduces the committed trade log', () => {
   const dir = path.join(__dirname, '../state')
@@ -201,12 +201,12 @@ test('analyze reproduces the committed trade log', () => {
     costs: { celoPerRoundTrip: 1.3, celoUsd: 0.08, roundTripFeeRate: 0.002 },
   })
 
-  assert.equal(r.overall.all.trades, 13)
-  assert.equal(r.overall.live.trades, 12)
-  assert.equal(r.overall.live.wins, 4)
+  assert.equal(r.overall.all.trades, 37)
+  assert.equal(r.overall.live.trades, 36)
+  assert.equal(r.overall.live.wins, 13)
   assert.equal(r.anomalies.mixedModeTrips.length, 1)
   assert.equal(r.anomalies.orphanCloses.length, 0)
-  assert.ok(Math.abs(r.overall.all.netPnlUsd - -1.85) < 0.005)
+  assert.ok(Math.abs(r.overall.all.netPnlUsd - -1.59) < 0.005)
 
   // Booked equity must equal the sum of realized PnL, per sleeve.
   for (const drift of Object.values(r.anomalies.ledgerDrift)) {
